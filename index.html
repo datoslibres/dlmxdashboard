@@ -153,18 +153,6 @@
                         Load eSIM
                     </button>
                 </div>
-                
-                <div class="hidden items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-                    <button onclick="loadSampleId('89353082711108204603')" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-full transition cursor-pointer shrink-0 border border-slate-200">
-                        Sample Live
-                    </button>
-                    <button onclick="loadDemoMode('active')" class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200/60 transition cursor-pointer shrink-0">
-                        Demo Active
-                    </button>
-                    <button onclick="loadDemoMode('expired')" class="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold rounded-full border border-rose-200/60 transition cursor-pointer shrink-0">
-                        Demo Expired
-                    </button>
-                </div>
             </div>
         </div>
 
@@ -207,88 +195,19 @@
                         </div>
                     </div>
 
+                    <div id="crypto-unavailable" class="hidden flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-xl shadow-xs">
+                        <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <p class="text-sm font-bold text-red-700">Crypto payments are currently unavailable. Please check back later or use OXXO.</p>
+                    </div>
+
                     <!-- Package Cards Grid -->
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="packages-grid">
-                        <div onclick="selectPackage(this, '1GB', 1000, 3.99)" class="package-card cursor-pointer border-2 border-[#5fd0c0] bg-gradient-to-br from-[#b7b5f5]/10 to-[#5fd0c0]/10 rounded-2xl p-4 transition hover:shadow-md relative flex flex-col justify-between h-full">
-                            <span class="absolute -top-2 -right-2 bg-[#dec7f4] text-slate-900 text-[9px] font-bold px-2 py-1 rounded-full uppercase font-mono shadow-xs">Selected</span>
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Starter</div>
-                                <div class="text-2xl font-extrabold text-slate-900 mt-1">1 GB</div>
-                                <div class="text-[11px] text-slate-500 font-medium">Valid 7 Days</div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-200/60 flex items-baseline justify-between">
-                                <span class="text-xs text-slate-400 font-medium">Price</span>
-                                <span class="text-base font-bold text-slate-900 font-mono">$3.99</span>
-                            </div>
-                        </div>
-
-                        <div onclick="selectPackage(this, '2GB', 2000, 6.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Basic</div>
-                                <div class="text-2xl font-extrabold text-slate-900 mt-1">2 GB</div>
-                                <div class="text-[11px] text-slate-500 font-medium">Valid 15 Days</div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-                                <span class="text-xs text-slate-400 font-medium">Price</span>
-                                <span class="text-base font-bold text-slate-900 font-mono">$6.99</span>
-                            </div>
-                        </div>
-
-                        <div onclick="selectPackage(this, '3GB', 3000, 8.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Popular</div>
-                                <div class="text-2xl font-extrabold text-slate-900 mt-1">3 GB</div>
-                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-                                <span class="text-xs text-slate-400 font-medium">Price</span>
-                                <span class="text-base font-bold text-slate-900 font-mono">$8.99</span>
-                            </div>
-                        </div>
-
-                        <div onclick="selectPackage(this, '5GB', 5000, 11.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
-                            <div>
-                                <div class="flex items-center justify-between">
-                                    <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Value</div>
-                                    <span class="bg-amber-400 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase font-mono tracking-wider shadow-sm">Best Value</span>
-                                </div>
-                                <div class="text-2xl font-extrabold text-slate-900 mt-1">5 GB</div>
-                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-                                <span class="text-xs text-slate-400 font-medium">Price</span>
-                                <span class="text-base font-bold text-slate-900 font-mono">$11.99</span>
-                            </div>
-                        </div>
-
-                        <div onclick="selectPackage(this, '10GB', 10000, 16.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Pro Data</div>
-                                <div class="text-2xl font-extrabold text-slate-900 mt-1">10 GB</div>
-                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-                                <span class="text-xs text-slate-400 font-medium">Price</span>
-                                <span class="text-base font-bold text-slate-900 font-mono">$16.99</span>
-                            </div>
-                        </div>
-
-                        <div onclick="selectPackage(this, '20GB', 20000, 25.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Max Data</div>
-                                <div class="text-2xl font-extrabold text-slate-900 mt-1">20 GB</div>
-                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-                                <span class="text-xs text-slate-400 font-medium">Price</span>
-                                <span class="text-base font-bold text-slate-900 font-mono">$25.99</span>
-                            </div>
-                        </div>
+                        <!-- Populated dynamically via crypto.csv -->
                     </div>
                 </div>
 
                 <!-- Section 3: Crypto Payment Info -->
-                <div class="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
+                <div id="crypto-payment-section" class="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
                     <div class="flex flex-col items-center sm:items-start space-y-2.5 w-full sm:w-auto">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">We accept crypto</span>
                         <div class="flex items-center space-x-3 text-slate-400">
@@ -439,10 +358,9 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h4 class="text-base font-bold text-slate-900 mb-1" id="error-title">Failed to load data</h4>
-                <p class="text-sm text-slate-500 max-w-md mx-auto mb-6" id="error-desc">Unable to fetch target eSIM. Check network or try a demo eSIM.</p>
+                <p class="text-sm text-slate-500 max-w-md mx-auto mb-6" id="error-desc">Unable to fetch target eSIM. Check network or try a valid eSIM.</p>
                 <div class="flex items-center justify-center space-x-3">
                     <button onclick="fetchData()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-full transition cursor-pointer">Retry Fetch</button>
-                    <button onclick="loadDemoMode('active')" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full border border-indigo-200 transition cursor-pointer">View Demo Data</button>
                 </div>
             </div>
 
@@ -611,7 +529,7 @@
             } else {
                 document.getElementById('display-id').innerText = 'No eSIM Specified';
                 document.getElementById('selected-profile-tag').innerText = 'No eSIM Specified';
-                document.getElementById('profile-status-subtext').innerText = 'Please enter an eSIM number in the search box above or choose a demo eSIM.';
+                document.getElementById('profile-status-subtext').innerText = 'Please enter an eSIM number in the search box above.';
                 document.getElementById('profile-status-subtext').className = 'text-xs text-slate-500 mt-1';
                 hideLoading();
                 document.getElementById('topup-card').classList.add('hidden');
@@ -620,8 +538,9 @@
                 updateVisibility();
             }
 
-            // Load OXXO data on initialization
+            // Load CSV data on initialization
             fetchOxxoData();
+            fetchCryptoData();
             fetchBlacklist();
         });
 
@@ -642,7 +561,7 @@
             }
         }
 
-        function selectPackage(cardEl, pkgName, mbVal, price) {
+        function selectPackage(cardEl, pkgName, price) {
             document.querySelectorAll('.package-card').forEach(c => {
                 c.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
                 const badge = c.querySelector('.absolute');
@@ -670,6 +589,83 @@
             const mixpayUrl = `https://mixpay.me/MY_USERNAME?amount=${selectedPackagePrice}&remark=${encodedId}`;
             mixpayBtn.href = mixpayUrl;
             mixpayLabel.innerText = `Top Up ${selectedPackageName} ($${selectedPackagePrice.toFixed(2)})`;
+        }
+
+        function fetchCryptoData() {
+            fetch('crypto.csv', { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) throw new Error('Crypto data not found or blocked by browser');
+                    return response.text();
+                })
+                .then(csv => {
+                    processCryptoCsv(csv);
+                })
+                .catch(err => {
+                    console.warn('Crypto fetch error, showing unavailable state:', err);
+                    showCryptoUnavailable();
+                });
+        }
+
+        function processCryptoCsv(csv) {
+            const lines = csv.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+            if (lines.length <= 1) {
+                showCryptoUnavailable();
+                return;
+            }
+            
+            let hasData = false;
+            const cryptoGrid = document.getElementById('packages-grid');
+            cryptoGrid.innerHTML = ''; 
+
+            for (let i = 1; i < lines.length; i++) {
+                const parts = lines[i].split(',').map(p => p.trim());
+                if (parts.length >= 3) {
+                    const gb = parts[0];
+                    const duration = parts[1];
+                    const usd = parts[2];
+                    
+                    const pkgName = gb + 'GB';
+                    const price = parseFloat(usd);
+                    
+                    hasData = true;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
+                    card.onclick = function() { selectPackage(this, pkgName, price); };
+                    
+                    card.innerHTML = `
+                        <div>
+                            <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Data Plan</div>
+                            <div class="text-2xl font-extrabold text-slate-900 mt-1">${gb} GB</div>
+                            <div class="text-[11px] text-slate-500 font-medium">Valid ${duration} Days</div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                            <span class="text-xs text-slate-400 font-medium">Price</span>
+                            <span class="text-base font-bold text-slate-900 font-mono">$${usd}</span>
+                        </div>
+                    `;
+                    
+                    cryptoGrid.appendChild(card);
+                    
+                    if (i === 1) {
+                        selectPackage(card, pkgName, price);
+                    }
+                }
+            }
+            
+            if (hasData) {
+                document.getElementById('crypto-unavailable').classList.add('hidden');
+                document.getElementById('packages-grid').classList.remove('hidden');
+                document.getElementById('crypto-payment-section').classList.remove('hidden');
+            } else {
+                showCryptoUnavailable();
+            }
+        }
+
+        function showCryptoUnavailable() {
+            document.getElementById('crypto-unavailable').classList.remove('hidden');
+            document.getElementById('packages-grid').classList.add('hidden');
+            document.getElementById('crypto-payment-section').classList.add('hidden');
         }
 
         function fetchOxxoData() {
@@ -887,68 +883,6 @@
             } else {
                 alertBox('Please enter a valid eSIM number');
             }
-        }
-
-        function loadDemoMode(mode) {
-            hideLoading();
-            document.getElementById('error-state').classList.add('hidden');
-            document.getElementById('empty-state').classList.add('hidden');
-            
-            let demoId = mode === 'active' ? '89353082711108204603-DEMO' : '89353082711108204603-EXPIRED';
-            urlId = demoId;
-            
-            try {
-                const newUrl = `${window.location.pathname}?eid=${encodeURIComponent(urlId)}`;
-                window.history.pushState({path: newUrl}, '', newUrl);
-            } catch (e) {}
-
-            updateVisibility();
-
-            document.getElementById('manual-id-input').value = demoId;
-            document.getElementById('display-id').innerText = demoId;
-            document.getElementById('selected-profile-tag').innerText = demoId;
-            
-            if (!blacklistedEsims.has(urlId)) {
-                document.getElementById('topup-card').classList.remove('hidden');
-            } else {
-                document.getElementById('topup-card').classList.add('hidden');
-            }
-
-            const now = new Date();
-            let mockHtml = '';
-
-            if (mode === 'active') {
-                const startDate = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-                const endDate = new Date(now.getTime() + 12 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC (Active)';
-                
-                mockHtml = `
-                    <a class="underline">Plan Link 1</a>
-                    <a class="underline">5GB LTE Ultra Data Package - Nationwide</a>
-                    <ul>
-                        <li>Start: ${startDate}</li>
-                        <li>End: ${endDate}</li>
-                        <li>Data Usage: 1240.50 MB of 5000.00 MB</li>
-                    </ul>
-                `;
-            } else {
-                const startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-                const endDate = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC (Expired)';
-                
-                mockHtml = `
-                    <a class="underline">Plan Link 1</a>
-                    <a class="underline">3GB LTE Starter Package - Expired</a>
-                    <ul>
-                        <li>Start: ${startDate}</li>
-                        <li>End: ${endDate}</li>
-                        <li>Data Usage: 3000.00 MB of 3000.00 MB</li>
-                    </ul>
-                `;
-            }
-
-            parseAndDisplayContent(mockHtml);
-            updateMixPayButton();
-            loadEsimGuideAssets(urlId); // attempt to load mock assets
-            alertBox(`Loaded ${mode.toUpperCase()} Demo eSIM`);
         }
 
         function setEsimNumber(newId) {
