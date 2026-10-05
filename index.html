@@ -342,7 +342,7 @@
                     
                     <!-- Custom prominent Dropdown Menu for OXXO -->
                     <div id="oxxo-custom-select-container" class="relative w-full max-w-lg mx-auto">
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 font-mono text-center">Select OXXO Data Package</label>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 font-mono text-center">Select Data Package</label>
                         <button id="oxxo-dropdown-btn" onclick="toggleOxxoDropdown(event)" class="w-full flex items-center justify-between bg-slate-50 border-2 border-slate-200 p-4 rounded-xl shadow-sm focus:border-red-400 focus:outline-none hover:bg-white hover:border-red-300 transition-all text-left">
                             <span id="oxxo-dropdown-label" class="text-slate-800 text-base flex-grow">Select a package...</span>
                             <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -718,7 +718,7 @@
                     // Create Custom Dropdown Item
                     const li = document.createElement('li');
                     li.className = 'px-5 py-3.5 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 flex justify-between items-center transition-colors';
-                    li.innerHTML = `<span class="font-bold text-slate-800 text-lg">${pkgKey} Data Plan</span> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm">$${parts[2]} MXN</span>`;
+                    li.innerHTML = `<div class="flex flex-col"><span class="font-bold text-slate-800 text-lg">${pkgKey} Data Plan</span><span class="text-xs text-slate-500 font-medium">Valid for ${parts[1]}</span></div> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
                     
                     li.onclick = (e) => {
                         e.stopPropagation();
@@ -759,7 +759,8 @@
             // Update Label of dropdown button
             const data = oxxoData[pkgName];
             if (data) {
-                document.getElementById('oxxo-dropdown-label').innerHTML = `<span class="font-bold text-slate-900">${pkgName} Data Plan</span> <span class="text-slate-400 mx-2">-</span> <span class="text-red-600 font-bold">$${data.mxn} MXN</span>`;
+                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><span class="font-bold text-slate-900">${pkgName} Data Plan</span><span class="text-xs text-slate-500 font-medium">Valid for ${data.duration}</span></div> <span class="text-red-600 font-bold px-3 py-1 bg-red-50 rounded border border-red-100 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
+                document.getElementById('oxxo-dropdown-label').className = "text-slate-800 text-base flex-grow flex items-center justify-between";
             }
             updateOxxoView();
         }
@@ -838,7 +839,7 @@
             if (!id) return;
 
             // Load Image
-            const imgUrl = `/data/${encodeURIComponent(id)}.png`;
+            const imgUrl = `data/${encodeURIComponent(id)}.png`;
             const testImg = new Image();
             testImg.onload = function() {
                 qrImg.src = imgUrl;
@@ -853,7 +854,7 @@
             testImg.src = imgUrl;
 
             // Load CSV
-            fetch(`/data/${encodeURIComponent(id)}.csv`, { cache: 'no-store' })
+            fetch(`data/${encodeURIComponent(id)}.csv`, { cache: 'no-store' })
                 .then(response => {
                     if (!response.ok) throw new Error('CSV not found');
                     return response.text();
