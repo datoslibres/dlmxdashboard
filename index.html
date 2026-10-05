@@ -49,9 +49,9 @@
         /* Custom flashy button style mimicking Button.svg */
         .btn-flashy {
             background: linear-gradient(#27272a, #27272a) padding-box,
-                        linear-gradient(to right, #b7b5f5, #5fd0c0) border-box; /* matches purple/teal gradient */
+                        linear-gradient(to right, #b7b5f5, #5fd0c0) border-box;
             border: 2px solid transparent;
-            border-radius: 9999px; /* pill shape */
+            border-radius: 9999px;
             color: #f8fafc;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -68,6 +68,22 @@
         .btn-flashy:active {
             transform: translateY(1px);
             box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Dropdown Scrollbar */
+        #oxxo-dropdown-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        #oxxo-dropdown-menu::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+            border-radius: 8px;
+        }
+        #oxxo-dropdown-menu::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 8px;
+        }
+        #oxxo-dropdown-menu::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
         }
     </style>
 </head>
@@ -95,9 +111,9 @@
         <div class="max-w-5xl mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center">
                 <div class="flex flex-col justify-center">
-                    <!-- Bold Logo Implementation (No Animation) -->
                     <a href="?" class="block">
-                        <img src="LogoBold.svg" alt="Datos Libres" class="w-[260px] object-contain" id="header-title">
+                        <img src="LogoBold.svg" alt="Datos Libres" class="w-[260px] object-contain" id="header-title" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none;" class="text-2xl font-black tracking-tight text-slate-900">Datos Libres</span>
                     </a>
                     <p class="text-[19px] font-bold tracking-wide mt-1.5 text-transparent bg-clip-text bg-gradient-to-r from-[#d3bdf8] via-[#a3d0ed] to-[#5fd0c0] leading-none" id="header-subtitle">eSIM y Datos para celular</p>
                 </div>
@@ -193,7 +209,6 @@
 
                     <!-- Package Cards Grid -->
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="packages-grid">
-                        <!-- 1GB Card -->
                         <div onclick="selectPackage(this, '1GB', 1000, 3.99)" class="package-card cursor-pointer border-2 border-[#5fd0c0] bg-gradient-to-br from-[#b7b5f5]/10 to-[#5fd0c0]/10 rounded-2xl p-4 transition hover:shadow-md relative flex flex-col justify-between h-full">
                             <span class="absolute -top-2 -right-2 bg-[#dec7f4] text-slate-900 text-[9px] font-bold px-2 py-1 rounded-full uppercase font-mono shadow-xs">Selected</span>
                             <div>
@@ -207,7 +222,6 @@
                             </div>
                         </div>
 
-                        <!-- 2GB Card -->
                         <div onclick="selectPackage(this, '2GB', 2000, 6.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
                             <div>
                                 <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Basic</div>
@@ -220,7 +234,6 @@
                             </div>
                         </div>
 
-                        <!-- 3GB Card -->
                         <div onclick="selectPackage(this, '3GB', 3000, 8.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
                             <div>
                                 <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Popular</div>
@@ -233,7 +246,6 @@
                             </div>
                         </div>
 
-                        <!-- 5GB Card -->
                         <div onclick="selectPackage(this, '5GB', 5000, 11.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
                             <div>
                                 <div class="flex items-center justify-between">
@@ -249,7 +261,6 @@
                             </div>
                         </div>
 
-                        <!-- 10GB Card -->
                         <div onclick="selectPackage(this, '10GB', 10000, 16.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
                             <div>
                                 <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Pro Data</div>
@@ -262,7 +273,6 @@
                             </div>
                         </div>
 
-                        <!-- 20GB Card -->
                         <div onclick="selectPackage(this, '20GB', 20000, 25.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
                             <div>
                                 <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Max Data</div>
@@ -279,7 +289,6 @@
 
                 <!-- Section 3: Crypto Payment Info -->
                 <div class="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
-                    <!-- Crypto Section Left -->
                     <div class="flex flex-col items-center sm:items-start space-y-2.5 w-full sm:w-auto">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">We accept crypto</span>
                         <div class="flex items-center space-x-3 text-slate-400">
@@ -291,7 +300,6 @@
                         </div>
                     </div>
 
-                    <!-- Top Up Action Right -->
                     <div class="flex flex-col items-center sm:items-end w-full sm:w-auto">
                         <a id="mixpay-btn" href="#" target="_blank" class="btn-flashy w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 text-sm font-bold cursor-pointer">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
@@ -314,17 +322,14 @@
             </div>
 
             <!-- Card 3: Pay with OXXO Section -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col gap-5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                        <span class="px-2 py-0.5 rounded bg-red-600 text-white font-bold text-[10px] tracking-wider">OXXO</span>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col gap-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-red-600 text-white font-bold text-xs tracking-wider shadow-sm">OXXO</span>
                         <span>Pay with Cash at OXXO</span>
                     </h3>
-                    <div class="flex items-center gap-3">
-                        <span class="bg-amber-100 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono">Prices in MXN</span>
-                        <select id="oxxo-pkg-select" onchange="selectOxxoPackage(this.value)" class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-red-500 hidden cursor-pointer shadow-sm">
-                            <!-- Populated dynamically -->
-                        </select>
+                    <div class="flex items-center">
+                        <span class="bg-amber-100 text-amber-900 font-bold px-2 py-1 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono">Prices in MXN</span>
                     </div>
                 </div>
 
@@ -333,44 +338,63 @@
                     <p class="text-sm font-bold text-red-700">OXXO deposits are currently unavailable. Please check back later or use Crypto.</p>
                 </div>
 
-                <div id="oxxo-content" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                    <!-- 4 Step Guide (Left) -->
-                    <div class="space-y-3 order-2 md:order-1">
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">1</span>
-                            <span class="text-sm font-medium text-slate-700">Select your preferred OXXO data package from the dropdown menu above.</span>
-                        </div>
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">2</span>
-                            <span class="text-sm font-medium text-slate-700">Present the QR code below or write down the transfer number.</span>
-                        </div>
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">3</span>
-                            <span class="text-sm font-medium text-slate-700">Show it to the cashier at any OXXO store and pay with cash.</span>
-                        </div>
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">4</span>
-                            <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline transition">@datoslibresmx</a>.</span>
+                <div id="oxxo-content" class="hidden flex flex-col gap-6">
+                    
+                    <!-- Custom prominent Dropdown Menu for OXXO -->
+                    <div id="oxxo-custom-select-container" class="relative w-full max-w-lg mx-auto">
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 font-mono text-center">Select OXXO Data Package</label>
+                        <button id="oxxo-dropdown-btn" onclick="toggleOxxoDropdown(event)" class="w-full flex items-center justify-between bg-slate-50 border-2 border-slate-200 p-4 rounded-xl shadow-sm focus:border-red-400 focus:outline-none hover:bg-white hover:border-red-300 transition-all text-left">
+                            <span id="oxxo-dropdown-label" class="text-slate-800 text-base flex-grow">Select a package...</span>
+                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- Dropdown Options -->
+                        <div id="oxxo-dropdown-menu" class="hidden absolute z-20 w-full mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl max-h-60 overflow-y-auto">
+                            <ul id="oxxo-pkg-list" class="py-1">
+                                <!-- Populated dynamically -->
+                            </ul>
                         </div>
                     </div>
 
-                    <!-- Dynamic QR and Number Display (Right) -->
-                    <div class="order-1 md:order-2 flex flex-col items-center justify-center bg-white p-5 rounded-2xl border-2 border-dashed border-slate-200 text-center relative overflow-hidden">
-                        <div class="w-full bg-slate-50 py-1.5 absolute top-0 left-0 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono">Transfer Details</div>
-                        
-                        <div class="w-36 h-36 mt-8 mb-4 bg-white p-2 border border-slate-100 rounded-xl shadow-sm relative flex items-center justify-center">
-                            <img id="oxxo-qr-img" src="" alt="OXXO QR" class="w-full h-full object-contain hidden transition-opacity duration-300">
-                            <div id="oxxo-qr-placeholder" class="w-full h-full flex flex-col items-center justify-center text-xs text-slate-400 gap-2">
-                                <svg class="w-6 h-6 text-slate-300 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                <span>Loading...</span>
+                    <!-- Layout for Steps and Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <!-- 4 Step Guide (Left) -->
+                        <div class="space-y-3 order-2 md:order-1">
+                            <div class="flex gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                                <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">1</span>
+                                <span class="text-sm font-medium text-slate-700">Select your preferred OXXO data package from the dropdown menu above.</span>
+                            </div>
+                            <div class="flex gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                                <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">2</span>
+                                <span class="text-sm font-medium text-slate-700">Present the QR code below or write down the transfer number.</span>
+                            </div>
+                            <div class="flex gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                                <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">3</span>
+                                <span class="text-sm font-medium text-slate-700">Show it to the cashier at any OXXO store and pay with cash.</span>
+                            </div>
+                            <div class="flex gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                                <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">4</span>
+                                <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline transition">@datoslibresmx</a>.</span>
                             </div>
                         </div>
 
-                        <div class="text-xl font-mono font-bold text-slate-900 mb-1 tracking-wider" id="oxxo-xfer-num">---------</div>
-                        <div class="text-xs font-medium text-slate-500 flex items-center justify-center gap-2">
-                            <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
-                            <span class="text-slate-300">|</span>
-                            <span>Amt: <span id="oxxo-amount" class="font-bold text-red-600 text-sm">-- MXN</span></span>
+                        <!-- Dynamic QR and Number Display (Right) -->
+                        <div class="order-1 md:order-2 flex flex-col items-center justify-center bg-white p-6 rounded-2xl border-2 border-dashed border-slate-300 text-center relative overflow-hidden transition-all hover:border-red-300">
+                            <div class="w-full bg-slate-50 py-1.5 absolute top-0 left-0 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono">Transfer Details</div>
+                            
+                            <div class="w-40 h-40 mt-8 mb-5 bg-white p-2.5 border border-slate-100 rounded-xl shadow-sm relative flex items-center justify-center">
+                                <img id="oxxo-qr-img" src="" alt="OXXO QR" class="w-full h-full object-contain hidden transition-opacity duration-300">
+                                <div id="oxxo-qr-placeholder" class="w-full h-full flex flex-col items-center justify-center text-xs text-slate-400 gap-2">
+                                    <svg class="w-6 h-6 text-slate-300 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    <span>Select Plan</span>
+                                </div>
+                            </div>
+
+                            <div class="text-2xl font-mono font-bold text-slate-900 mb-2 tracking-widest bg-slate-100 px-4 py-1.5 rounded-lg border border-slate-200 shadow-inner" id="oxxo-xfer-num">---------</div>
+                            <div class="text-sm font-medium text-slate-500 flex items-center justify-center gap-3 mt-1">
+                                <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
+                                <span class="text-slate-300">|</span>
+                                <span>Amt: <span id="oxxo-amount" class="font-bold text-red-600 text-base">-- MXN</span></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -446,48 +470,105 @@
         </div>
     </main>
 
-    <!-- eSIM Installation Modal -->
+    <!-- Expanded eSIM Installation Modal -->
     <div id="esim-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200">
-            <button onclick="toggleEsimGuide()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition">
+        <!-- Made wider for two column layout -->
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200 max-h-[95vh] overflow-y-auto">
+            <button onclick="toggleEsimGuide()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition z-10">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <div class="flex items-center space-x-4 mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#b7b5f5] to-[#5fd0c0] text-slate-900 flex items-center justify-center shadow-md">
+            
+            <div class="flex items-center space-x-4 mb-6 border-b border-slate-100 pb-5">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#b7b5f5] to-[#5fd0c0] text-slate-900 flex items-center justify-center shadow-md shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900">eSIM Setup & Installation</h3>
-                    <p class="text-sm text-slate-500 mt-0.5">Quick steps to activate your mobile profile</p>
+                    <h3 class="text-2xl font-bold text-slate-900 tracking-tight">eSIM Setup & Installation</h3>
+                    <p class="text-sm text-slate-500 mt-0.5">Quick steps to activate your mobile profile for eSIM <span id="guide-esim-display" class="font-mono font-bold text-indigo-600">--</span></p>
                 </div>
             </div>
 
-            <div class="space-y-4 text-sm text-slate-600 border-t border-slate-100 pt-6">
-                <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                    <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200">1</span>
-                    <div class="pt-0.5">
-                        <strong class="text-slate-900 block mb-1">iOS (iPhone):</strong>
-                        Go to Settings &gt; Cellular &gt; Add eSIM / Cellular Plan &gt; Scan QR code or enter activation details.
+            <!-- Main Layout Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm text-slate-600">
+                
+                <!-- Left Column: Activation Resources -->
+                <div class="space-y-6">
+                    <!-- QR Code Section -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center flex flex-col items-center">
+                        <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 font-mono">Scan to Install</span>
+                        <div class="w-48 h-48 bg-white border border-slate-200 p-2 rounded-xl shadow-sm flex items-center justify-center mb-3">
+                            <img id="guide-qr-img" src="" alt="eSIM QR Code" class="w-full h-full object-contain" style="display: none;" onerror="this.style.display='none'; document.getElementById('guide-qr-error').style.display='flex';">
+                            <!-- Placeholder/Error -->
+                            <div id="guide-qr-error" class="text-xs text-slate-400 flex flex-col items-center justify-center h-full w-full">
+                                <svg class="w-6 h-6 mb-2 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <span>QR Code pending<br>load an active eSIM</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500">Scan this code using your device camera during the setup process.</p>
+                    </div>
+
+                    <!-- Manual Details Section -->
+                    <div id="guide-manual-section" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm opacity-50 pointer-events-none transition-all">
+                        <h4 class="font-bold text-slate-900 mb-3 text-[13px] uppercase tracking-wider flex items-center gap-2">
+                            <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            Manual Activation String
+                        </h4>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">SM-DP+ Address</span>
+                                <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 break-all select-all shadow-inner" id="guide-smdp">Pending...</div>
+                            </div>
+                            <div>
+                                <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">Activation Code</span>
+                                <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 break-all select-all shadow-inner" id="guide-act-code">Pending...</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                    <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200">2</span>
-                    <div class="pt-0.5">
-                        <strong class="text-slate-900 block mb-1">Android (Samsung/Pixel):</strong>
-                        Go to Settings &gt; Connections &gt; SIM Manager &gt; Add eSIM &gt; Scan QR code.
+
+                <!-- Right Column: Instructions -->
+                <div class="space-y-4">
+                    <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
+                        <span class="w-8 h-8 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">1</span>
+                        <div class="pt-0.5">
+                            <strong class="text-slate-900 block mb-1.5 text-base">iOS (iPhone):</strong>
+                            <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Cellular &gt; Add eSIM / Cellular Plan</span> &gt; Scan QR code or tap 'Enter Details Manually'.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                    <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200">3</span>
-                    <div class="pt-0.5">
-                        <strong class="text-slate-900 block mb-1">Data Roaming:</strong>
-                        Ensure <strong>Data Roaming</strong> is turned ON for the eSIM profile after installation.
+                    
+                    <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
+                        <span class="w-8 h-8 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">2</span>
+                        <div class="pt-0.5">
+                            <strong class="text-slate-900 block mb-1.5 text-base">Android (Samsung/Pixel):</strong>
+                            <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Connections &gt; SIM Manager &gt; Add eSIM</span> &gt; Scan QR code.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-2 opacity-10">
+                            <svg class="w-24 h-24 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-white text-emerald-700 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-emerald-200 text-sm mt-0.5 z-10">3</span>
+                        <div class="pt-0.5 z-10 w-full">
+                            <strong class="text-emerald-950 block mb-1.5 text-base">Enable Data Roaming:</strong>
+                            <p class="leading-relaxed text-emerald-900 mb-3">Ensure <strong>Data Roaming</strong> is turned <strong class="text-emerald-700 uppercase tracking-wide">ON</strong> for the newly added eSIM profile after installation.</p>
+                            
+                            <!-- Toggle illustrative icon + text -->
+                            <div class="flex items-center gap-3 bg-white/60 p-3 rounded-xl border border-emerald-200/50 mt-2">
+                                <svg class="w-10 h-6 shrink-0 text-[#5fd0c0] transition-transform hover:scale-105" viewBox="0 0 32 20" fill="currentColor">
+                                    <rect width="32" height="20" rx="10" fill="currentColor" fill-opacity="0.3"/>
+                                    <circle cx="22" cy="10" r="8" fill="#5fd0c0" stroke="white" stroke-width="2" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2))"/>
+                                </svg>
+                                <span class="text-[11px] text-emerald-800/80 font-medium leading-tight">Note that this won't incur in any extra charges.</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-6 pt-6 border-t border-slate-100 flex justify-end">
-                <button onclick="toggleEsimGuide()" class="btn-flashy px-6 py-2.5 text-sm font-bold cursor-pointer">
+            <div class="mt-8 pt-6 border-t border-slate-100 flex justify-end">
+                <button onclick="toggleEsimGuide()" class="btn-flashy px-8 py-3 text-sm font-bold cursor-pointer">
                     Got it, close
                 </button>
             </div>
@@ -544,6 +625,15 @@
             fetchBlacklist();
         });
 
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const btn = document.getElementById('oxxo-dropdown-btn');
+            const menu = document.getElementById('oxxo-dropdown-menu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
         function updateVisibility() {
             if (urlId && urlId.trim() !== '') {
                 document.getElementById('esim-lookup-card').classList.add('hidden');
@@ -569,7 +659,6 @@
             selectedPackageName = pkgName;
             selectedPackagePrice = price;
             updateMixPayButton();
-            // Note: OXXO updates are now handled independently via its own dropdown selector.
         }
 
         function updateMixPayButton() {
@@ -584,7 +673,6 @@
         }
 
         function fetchOxxoData() {
-            // Use standard cache control instead of URL query parameters which break in blob/file environments
             fetch('oxxo.csv', { cache: 'no-store' })
                 .then(response => {
                     if (!response.ok) throw new Error('OXXO data not found or blocked by browser');
@@ -600,49 +688,108 @@
         }
 
         function processOxxoCsv(csv) {
-            // Split lines securely handling both \n and \r\n
             const lines = csv.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
-            // Skip if empty or only headers present
             if (lines.length <= 1) {
                 showOxxoUnavailable();
                 return;
             }
             
             let hasData = false;
-            const oxxoSelect = document.getElementById('oxxo-pkg-select');
-            oxxoSelect.innerHTML = ''; // Clear default/previous options
+            const oxxoList = document.getElementById('oxxo-pkg-list');
+            oxxoList.innerHTML = ''; 
             
+            // For auto-selecting the first item
+            let firstPkgKey = '';
+
             for (let i = 1; i < lines.length; i++) {
                 const parts = lines[i].split(',').map(p => p.trim());
                 if (parts.length >= 4) {
                     const gb = parts[0];
                     const pkgKey = gb + 'GB';
-                    // Structure: { '1GB': { duration: '7', mxn: '2.99', xfernum: '1234' } }
+                    
                     oxxoData[pkgKey] = {
                         duration: parts[1],
                         mxn: parts[2],
                         xfernum: parts[3]
                     };
                     hasData = true;
+                    if (!firstPkgKey) firstPkgKey = pkgKey;
                     
-                    // Add option to OXXO dropdown
-                    const opt = document.createElement('option');
-                    opt.value = pkgKey;
-                    opt.textContent = `${pkgKey} - $${parts[2]} MXN`;
-                    oxxoSelect.appendChild(opt);
+                    // Create Custom Dropdown Item
+                    const li = document.createElement('li');
+                    li.className = 'px-5 py-3.5 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 flex justify-between items-center transition-colors';
+                    li.innerHTML = `<span class="font-bold text-slate-800 text-lg">${pkgKey} Data Plan</span> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm">$${parts[2]} MXN</span>`;
+                    
+                    li.onclick = (e) => {
+                        e.stopPropagation();
+                        selectOxxoPackage(pkgKey);
+                        document.getElementById('oxxo-dropdown-menu').classList.add('hidden');
+                    };
+                    
+                    oxxoList.appendChild(li);
                 }
             }
             
             if (hasData) {
                 document.getElementById('oxxo-unavailable').classList.add('hidden');
                 document.getElementById('oxxo-content').classList.remove('hidden');
-                oxxoSelect.classList.remove('hidden');
+                document.getElementById('oxxo-custom-select-container').classList.remove('hidden');
                 
                 // Initialize default selection
-                selectedOxxoPackageName = oxxoSelect.value;
-                updateOxxoView();
+                selectOxxoPackage(firstPkgKey);
             } else {
                 showOxxoUnavailable();
+            }
+        }
+
+        function toggleOxxoDropdown(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('oxxo-dropdown-menu').classList.toggle('hidden');
+        }
+
+        function showOxxoUnavailable() {
+            document.getElementById('oxxo-unavailable').classList.remove('hidden');
+            document.getElementById('oxxo-content').classList.add('hidden');
+        }
+
+        function selectOxxoPackage(pkgName) {
+            selectedOxxoPackageName = pkgName;
+            
+            // Update Label of dropdown button
+            const data = oxxoData[pkgName];
+            if (data) {
+                document.getElementById('oxxo-dropdown-label').innerHTML = `<span class="font-bold text-slate-900">${pkgName} Data Plan</span> <span class="text-slate-400 mx-2">-</span> <span class="text-red-600 font-bold">$${data.mxn} MXN</span>`;
+            }
+            updateOxxoView();
+        }
+
+        function updateOxxoView() {
+            if (!Object.keys(oxxoData).length || !selectedOxxoPackageName) return;
+            
+            const data = oxxoData[selectedOxxoPackageName];
+            const numEl = document.getElementById('oxxo-xfer-num');
+            const amountEl = document.getElementById('oxxo-amount');
+            const pkgDisplayEl = document.getElementById('oxxo-pkg-display');
+            const qrImg = document.getElementById('oxxo-qr-img');
+            const qrPlaceholder = document.getElementById('oxxo-qr-placeholder');
+            
+            if (data) {
+                numEl.innerText = data.xfernum;
+                amountEl.innerText = `$${data.mxn} MXN`;
+                if (pkgDisplayEl) pkgDisplayEl.innerText = selectedOxxoPackageName;
+                
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.xfernum)}&margin=0`;
+                qrImg.onload = () => {
+                    qrImg.classList.remove('hidden');
+                    qrPlaceholder.classList.add('hidden');
+                };
+            } else {
+                numEl.innerText = '---------';
+                amountEl.innerText = '-- MXN';
+                if (pkgDisplayEl) pkgDisplayEl.innerText = '--';
+                qrImg.classList.add('hidden');
+                qrPlaceholder.classList.remove('hidden');
             }
         }
 
@@ -664,50 +811,67 @@
                 });
         }
 
-        function showOxxoUnavailable() {
-            document.getElementById('oxxo-unavailable').classList.remove('hidden');
-            document.getElementById('oxxo-content').classList.add('hidden');
-            document.getElementById('oxxo-pkg-select').classList.add('hidden');
-        }
-
-        function selectOxxoPackage(pkgName) {
-            selectedOxxoPackageName = pkgName;
-            updateOxxoView();
-        }
-
-        function updateOxxoView() {
-            if (!Object.keys(oxxoData).length || !selectedOxxoPackageName) return;
-            
-            const data = oxxoData[selectedOxxoPackageName];
-            const numEl = document.getElementById('oxxo-xfer-num');
-            const amountEl = document.getElementById('oxxo-amount');
-            const pkgDisplayEl = document.getElementById('oxxo-pkg-display');
-            const qrImg = document.getElementById('oxxo-qr-img');
-            const qrPlaceholder = document.getElementById('oxxo-qr-placeholder');
-            
-            if (data) {
-                numEl.innerText = data.xfernum;
-                amountEl.innerText = `$${data.mxn} MXN`;
-                if (pkgDisplayEl) pkgDisplayEl.innerText = selectedOxxoPackageName;
-                
-                // Fetch dynamic QR code using public QR server API
-                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.xfernum)}&margin=0`;
-                qrImg.onload = () => {
-                    qrImg.classList.remove('hidden');
-                    qrPlaceholder.classList.add('hidden');
-                };
-            } else {
-                numEl.innerText = 'N/A';
-                amountEl.innerText = '-- MXN';
-                if (pkgDisplayEl) pkgDisplayEl.innerText = '--';
-                qrImg.classList.add('hidden');
-                qrPlaceholder.classList.remove('hidden');
-            }
-        }
-
         function toggleEsimGuide() {
             const modal = document.getElementById('esim-modal');
             modal.classList.toggle('hidden');
+        }
+
+        function loadEsimGuideAssets(id) {
+            document.getElementById('guide-esim-display').innerText = id || '--';
+
+            // Reset manual section state
+            const manualSec = document.getElementById('guide-manual-section');
+            const smdpEl = document.getElementById('guide-smdp');
+            const actCodeEl = document.getElementById('guide-act-code');
+            
+            manualSec.classList.add('opacity-50', 'pointer-events-none');
+            smdpEl.innerText = 'Pending...';
+            actCodeEl.innerText = 'Pending...';
+
+            // Reset QR state
+            const qrImg = document.getElementById('guide-qr-img');
+            const qrErr = document.getElementById('guide-qr-error');
+            qrImg.style.display = 'none';
+            qrErr.style.display = 'flex';
+            qrErr.innerHTML = `<svg class="w-6 h-6 mb-2 text-slate-300 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><span>Loading...</span>`;
+
+            if (!id) return;
+
+            // Load Image
+            const imgUrl = `/data/${encodeURIComponent(id)}.png`;
+            const testImg = new Image();
+            testImg.onload = function() {
+                qrImg.src = imgUrl;
+                qrImg.style.display = 'block';
+                qrErr.style.display = 'none';
+            }
+            testImg.onerror = function() {
+                qrImg.style.display = 'none';
+                qrErr.style.display = 'flex';
+                qrErr.innerHTML = `<svg class="w-6 h-6 mb-2 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>QR Not Found</span>`;
+            }
+            testImg.src = imgUrl;
+
+            // Load CSV
+            fetch(`/data/${encodeURIComponent(id)}.csv`, { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) throw new Error('CSV not found');
+                    return response.text();
+                })
+                .then(csvText => {
+                    const parts = csvText.split(',').map(p => p.trim());
+                    if (parts.length >= 3) {
+                        // idx 0 = Full Activation String, idx 1 = SM-DP+, idx 2 = Activation code
+                        smdpEl.innerText = parts[1] || 'N/A';
+                        actCodeEl.innerText = parts[2] || 'N/A';
+                        manualSec.classList.remove('opacity-50', 'pointer-events-none');
+                    }
+                })
+                .catch(err => {
+                    console.warn(`Could not load CSV for ${id}:`, err);
+                    smdpEl.innerText = 'Unavailable';
+                    actCodeEl.innerText = 'Unavailable';
+                });
         }
 
         function loadSampleId(sampleId) {
@@ -782,6 +946,7 @@
 
             parseAndDisplayContent(mockHtml);
             updateMixPayButton();
+            loadEsimGuideAssets(urlId); // attempt to load mock assets
             alertBox(`Loaded ${mode.toUpperCase()} Demo eSIM`);
         }
 
@@ -811,6 +976,7 @@
             statusSubtext.className = 'text-xs text-slate-500 mt-1 font-medium';
 
             updateMixPayButton();
+            loadEsimGuideAssets(urlId); // Load the specific QR + CSV for guide
             fetchData();
         }
 
@@ -1108,7 +1274,8 @@
                         progressTrack.className = 'w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200/50 p-0.5 shadow-inner';
 
                         const progressBar = document.createElement('div');
-                        progressBar.className = `${isActive ? 'bg-gradient-to-r from-[#b7b5f5] to-[#5fd0c0]' : 'bg-gradient-to-r from-rose-400 to-rose-500'} h-full rounded-full transition-all duration-1000 ease-out`;
+                        // IMPLEMENTED: Requested gradient colors #dec7f4 to #9cdbd7 for active state
+                        progressBar.className = `${isActive ? 'bg-gradient-to-r from-[#dec7f4] to-[#9cdbd7]' : 'bg-gradient-to-r from-rose-400 to-rose-500'} h-full rounded-full transition-all duration-1000 ease-out`;
                         progressBar.style.width = `${percentage}%`;
 
                         progressTrack.appendChild(progressBar);
