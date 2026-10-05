@@ -413,7 +413,54 @@
             <!-- Main Layout Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm text-slate-600">
                 
-                <!-- Left Column: Activation Resources -->
+                <!-- Left Column: Instructions -->
+                <div class="space-y-4">
+                    <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
+                        <span class="w-8 h-8 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">1</span>
+                        <div class="pt-0.5 w-full">
+                            <strong class="text-slate-900 block mb-1.5 text-base">iOS (iPhone):</strong>
+                            <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Cellular &gt; Add eSIM / Cellular Plan</span> &gt; Scan QR code or tap 'Enter Details Manually'.</p>
+                            <a id="btn-quick-install-ios" href="#" class="mt-3 hidden inline-flex items-center justify-center px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm w-full sm:w-auto">
+                                <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 0-2.072 1.442-3.087 2.871-.904 1.282-1.287 2.686-1.287 2.686s1.95-.084 3.125-1.127c1.196-1.06 1.487-2.652 1.487-2.652zm-3.266 5.86c-1.503.011-2.905.94-3.666.94-.757 0-1.921-.861-3.136-.837-1.579.03-3.045.92-3.854 2.336-1.642 2.85-.418 7.054 1.184 9.37 .783 1.135 1.706 2.392 2.916 2.348 1.16-.046 1.606-.754 3.015-.754 1.411 0 1.81.754 3.037.732 1.25-.02 2.03-.15 2.876-2.39 1.577-2.32 2.15-4.48 2.15-4.48s-1.896-.753-1.896-2.96c0-2.083 1.636-3.155 1.636-3.155-1.111-1.62-2.883-1.823-3.418-1.879z"/></svg>
+                                Quick Install (iOS)
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
+                        <span class="w-8 h-8 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">2</span>
+                        <div class="pt-0.5 w-full">
+                            <strong class="text-slate-900 block mb-1.5 text-base">Android (Samsung/Pixel):</strong>
+                            <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Connections &gt; SIM Manager &gt; Add eSIM</span> &gt; Scan QR code.</p>
+                            <a id="btn-quick-install-android" href="#" class="mt-3 hidden inline-flex items-center justify-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-sm w-full sm:w-auto">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1158-.201.0471-.4583-.1535-.5745-.201-.1158-.4583-.0471-.5745.1535l-2.0305 3.5168c-1.4022-.6445-2.9866-1.0028-4.6644-1.0028-1.6778 0-3.2622.3583-4.6644 1.0028l-2.0305-3.5168c-.1158-.2006-.3735-.2693-.5745-.1535-.2006.1162-.2693.3735-.1535.5745l1.9973 3.4592c-2.8252 1.547-4.7397 4.415-5.0084 7.747h20.8715c-.2687-3.332-2.1832-6.2-5.0094-7.747z"/></svg>
+                                Quick Install (Android)
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-2 opacity-10">
+                            <svg class="w-24 h-24 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-white text-emerald-700 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-emerald-200 text-sm mt-0.5 z-10">3</span>
+                        <div class="pt-0.5 z-10 w-full">
+                            <strong class="text-emerald-950 block mb-1.5 text-base">Enable Data Roaming:</strong>
+                            <p class="leading-relaxed text-emerald-900 mb-3">Ensure <strong>Data Roaming</strong> is turned <strong class="text-emerald-700 uppercase tracking-wide">ON</strong> for the newly added eSIM profile after installation.</p>
+                            
+                            <!-- Toggle illustrative icon + text -->
+                            <div class="flex items-center gap-3 bg-white/60 p-3 rounded-xl border border-emerald-200/50 mt-2">
+                                <svg class="w-10 h-6 shrink-0 text-[#5fd0c0] transition-transform hover:scale-105" viewBox="0 0 32 20" fill="currentColor">
+                                    <rect width="32" height="20" rx="10" fill="currentColor" fill-opacity="0.3"/>
+                                    <circle cx="22" cy="10" r="8" fill="#5fd0c0" stroke="white" stroke-width="2" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2))"/>
+                                </svg>
+                                <span class="text-[11px] text-emerald-800/80 font-medium leading-tight">Note that this won't incur in any extra charges.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Activation Resources -->
                 <div class="space-y-6">
                     <!-- QR Code Section -->
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center flex flex-col items-center">
@@ -448,45 +495,6 @@
                             <div>
                                 <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">Activation Code</span>
                                 <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 break-all select-all shadow-inner" id="guide-act-code">Pending...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column: Instructions -->
-                <div class="space-y-4">
-                    <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
-                        <span class="w-8 h-8 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">1</span>
-                        <div class="pt-0.5">
-                            <strong class="text-slate-900 block mb-1.5 text-base">iOS (iPhone):</strong>
-                            <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Cellular &gt; Add eSIM / Cellular Plan</span> &gt; Scan QR code or tap 'Enter Details Manually'.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
-                        <span class="w-8 h-8 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">2</span>
-                        <div class="pt-0.5">
-                            <strong class="text-slate-900 block mb-1.5 text-base">Android (Samsung/Pixel):</strong>
-                            <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Connections &gt; SIM Manager &gt; Add eSIM</span> &gt; Scan QR code.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 shadow-sm relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-2 opacity-10">
-                            <svg class="w-24 h-24 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
-                        </div>
-                        <span class="w-8 h-8 rounded-full bg-white text-emerald-700 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-emerald-200 text-sm mt-0.5 z-10">3</span>
-                        <div class="pt-0.5 z-10 w-full">
-                            <strong class="text-emerald-950 block mb-1.5 text-base">Enable Data Roaming:</strong>
-                            <p class="leading-relaxed text-emerald-900 mb-3">Ensure <strong>Data Roaming</strong> is turned <strong class="text-emerald-700 uppercase tracking-wide">ON</strong> for the newly added eSIM profile after installation.</p>
-                            
-                            <!-- Toggle illustrative icon + text -->
-                            <div class="flex items-center gap-3 bg-white/60 p-3 rounded-xl border border-emerald-200/50 mt-2">
-                                <svg class="w-10 h-6 shrink-0 text-[#5fd0c0] transition-transform hover:scale-105" viewBox="0 0 32 20" fill="currentColor">
-                                    <rect width="32" height="20" rx="10" fill="currentColor" fill-opacity="0.3"/>
-                                    <circle cx="22" cy="10" r="8" fill="#5fd0c0" stroke="white" stroke-width="2" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2))"/>
-                                </svg>
-                                <span class="text-[11px] text-emerald-800/80 font-medium leading-tight">Note that this won't incur in any extra charges.</span>
                             </div>
                         </div>
                     </div>
@@ -890,6 +898,13 @@
             const actCodeEl = document.getElementById('guide-act-code');
             const fullStringEl = document.getElementById('guide-full-string');
             
+            const iosBtn = document.getElementById('btn-quick-install-ios');
+            const androidBtn = document.getElementById('btn-quick-install-android');
+            iosBtn.classList.add('hidden');
+            androidBtn.classList.add('hidden');
+            iosBtn.href = '#';
+            androidBtn.href = '#';
+
             manualSec.classList.add('opacity-50', 'pointer-events-none');
             smdpEl.innerText = 'Pending...';
             actCodeEl.innerText = 'Pending...';
@@ -935,8 +950,16 @@
                         actCodeEl.innerText = actCode;
                         
                         // Construct the Full Activation String using the LPA:1$ standard format
-                        fullStringEl.innerText = (smdp !== 'N/A' && actCode !== 'N/A') ? `LPA:1$${smdp}$${actCode}` : 'N/A';
+                        const activationString = (smdp !== 'N/A' && actCode !== 'N/A') ? `LPA:1$${smdp}$${actCode}` : 'N/A';
+                        fullStringEl.innerText = activationString;
                         
+                        if (activationString !== 'N/A') {
+                            iosBtn.href = `https://esimsetup.apple.com/esim_qrcode_provisioning?carddata=${activationString}`;
+                            androidBtn.href = `https://esimsetup.android.com/esim_qrcode_provisioning?carddata=${activationString}`;
+                            iosBtn.classList.remove('hidden');
+                            androidBtn.classList.remove('hidden');
+                        }
+
                         manualSec.classList.remove('opacity-50', 'pointer-events-none');
                     }
                 })
