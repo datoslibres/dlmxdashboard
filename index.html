@@ -315,12 +315,17 @@
 
             <!-- Card 3: Pay with OXXO Section -->
             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col gap-5">
-                <div class="flex items-center justify-between">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                         <span class="px-2 py-0.5 rounded bg-red-600 text-white font-bold text-[10px] tracking-wider">OXXO</span>
                         <span>Pay with Cash at OXXO</span>
                     </h3>
-                    <span class="bg-amber-100 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono">Prices in MXN</span>
+                    <div class="flex items-center gap-3">
+                        <span class="bg-amber-100 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono">Prices in MXN</span>
+                        <select id="oxxo-pkg-select" onchange="selectOxxoPackage(this.value)" class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-red-500 hidden cursor-pointer shadow-sm">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
                 </div>
 
                 <div id="oxxo-unavailable" class="hidden flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-xl shadow-xs">
@@ -328,32 +333,32 @@
                     <p class="text-sm font-bold text-red-700">OXXO deposits are currently unavailable. Please check back later or use Crypto.</p>
                 </div>
 
-                <div id="oxxo-content" class="hidden grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+                <div id="oxxo-content" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                     <!-- 4 Step Guide (Left) -->
-                    <div class="md:col-span-3 space-y-3">
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">1</span>
-                            <span class="text-sm font-medium text-slate-700">Select your preferred package above</span>
+                    <div class="space-y-3 order-2 md:order-1">
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">1</span>
+                            <span class="text-sm font-medium text-slate-700">Select your preferred OXXO data package from the dropdown menu above.</span>
                         </div>
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">2</span>
-                            <span class="text-sm font-medium text-slate-700">Write down the transfer number</span>
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">2</span>
+                            <span class="text-sm font-medium text-slate-700">Present the QR code below or write down the transfer number.</span>
                         </div>
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">3</span>
-                            <span class="text-sm font-medium text-slate-700">Pay with cash at OXXO</span>
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">3</span>
+                            <span class="text-sm font-medium text-slate-700">Show it to the cashier at any OXXO store and pay with cash.</span>
                         </div>
-                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
-                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">4</span>
-                            <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline transition">@datoslibresmx</a></span>
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-start">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">4</span>
+                            <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline transition">@datoslibresmx</a>.</span>
                         </div>
                     </div>
 
                     <!-- Dynamic QR and Number Display (Right) -->
-                    <div class="md:col-span-2 flex flex-col items-center justify-center bg-white p-5 rounded-2xl border-2 border-dashed border-slate-200 text-center relative h-full">
-                        <div class="absolute -top-3 bg-white px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">Transfer Details</div>
+                    <div class="order-1 md:order-2 flex flex-col items-center justify-center bg-white p-5 rounded-2xl border-2 border-dashed border-slate-200 text-center relative overflow-hidden">
+                        <div class="w-full bg-slate-50 py-1.5 absolute top-0 left-0 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono">Transfer Details</div>
                         
-                        <div class="w-32 h-32 mb-4 bg-white p-2 border border-slate-100 rounded-xl shadow-sm relative flex items-center justify-center">
+                        <div class="w-36 h-36 mt-8 mb-4 bg-white p-2 border border-slate-100 rounded-xl shadow-sm relative flex items-center justify-center">
                             <img id="oxxo-qr-img" src="" alt="OXXO QR" class="w-full h-full object-contain hidden transition-opacity duration-300">
                             <div id="oxxo-qr-placeholder" class="w-full h-full flex flex-col items-center justify-center text-xs text-slate-400 gap-2">
                                 <svg class="w-6 h-6 text-slate-300 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -362,7 +367,11 @@
                         </div>
 
                         <div class="text-xl font-mono font-bold text-slate-900 mb-1 tracking-wider" id="oxxo-xfer-num">---------</div>
-                        <div class="text-xs font-medium text-slate-500">Amount: <span id="oxxo-amount" class="font-bold text-slate-800 text-sm ml-1">-- MXN</span></div>
+                        <div class="text-xs font-medium text-slate-500 flex items-center justify-center gap-2">
+                            <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
+                            <span class="text-slate-300">|</span>
+                            <span>Amt: <span id="oxxo-amount" class="font-bold text-red-600 text-sm">-- MXN</span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -507,6 +516,7 @@
         
         // OXXO Config
         let oxxoData = {};
+        let selectedOxxoPackageName = '';
 
         // Blacklist Config
         let blacklistedEsims = new Set();
@@ -559,7 +569,7 @@
             selectedPackageName = pkgName;
             selectedPackagePrice = price;
             updateMixPayButton();
-            updateOxxoView();
+            // Note: OXXO updates are now handled independently via its own dropdown selector.
         }
 
         function updateMixPayButton() {
@@ -599,23 +609,37 @@
             }
             
             let hasData = false;
+            const oxxoSelect = document.getElementById('oxxo-pkg-select');
+            oxxoSelect.innerHTML = ''; // Clear default/previous options
+            
             for (let i = 1; i < lines.length; i++) {
                 const parts = lines[i].split(',').map(p => p.trim());
                 if (parts.length >= 4) {
                     const gb = parts[0];
+                    const pkgKey = gb + 'GB';
                     // Structure: { '1GB': { duration: '7', mxn: '2.99', xfernum: '1234' } }
-                    oxxoData[gb + 'GB'] = {
+                    oxxoData[pkgKey] = {
                         duration: parts[1],
                         mxn: parts[2],
                         xfernum: parts[3]
                     };
                     hasData = true;
+                    
+                    // Add option to OXXO dropdown
+                    const opt = document.createElement('option');
+                    opt.value = pkgKey;
+                    opt.textContent = `${pkgKey} - $${parts[2]} MXN`;
+                    oxxoSelect.appendChild(opt);
                 }
             }
             
             if (hasData) {
                 document.getElementById('oxxo-unavailable').classList.add('hidden');
                 document.getElementById('oxxo-content').classList.remove('hidden');
+                oxxoSelect.classList.remove('hidden');
+                
+                // Initialize default selection
+                selectedOxxoPackageName = oxxoSelect.value;
                 updateOxxoView();
             } else {
                 showOxxoUnavailable();
@@ -643,23 +667,31 @@
         function showOxxoUnavailable() {
             document.getElementById('oxxo-unavailable').classList.remove('hidden');
             document.getElementById('oxxo-content').classList.add('hidden');
+            document.getElementById('oxxo-pkg-select').classList.add('hidden');
+        }
+
+        function selectOxxoPackage(pkgName) {
+            selectedOxxoPackageName = pkgName;
+            updateOxxoView();
         }
 
         function updateOxxoView() {
-            if (!Object.keys(oxxoData).length) return;
+            if (!Object.keys(oxxoData).length || !selectedOxxoPackageName) return;
             
-            const data = oxxoData[selectedPackageName];
+            const data = oxxoData[selectedOxxoPackageName];
             const numEl = document.getElementById('oxxo-xfer-num');
             const amountEl = document.getElementById('oxxo-amount');
+            const pkgDisplayEl = document.getElementById('oxxo-pkg-display');
             const qrImg = document.getElementById('oxxo-qr-img');
             const qrPlaceholder = document.getElementById('oxxo-qr-placeholder');
             
             if (data) {
                 numEl.innerText = data.xfernum;
                 amountEl.innerText = `$${data.mxn} MXN`;
+                if (pkgDisplayEl) pkgDisplayEl.innerText = selectedOxxoPackageName;
                 
                 // Fetch dynamic QR code using public QR server API
-                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(data.xfernum)}&margin=0`;
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.xfernum)}&margin=0`;
                 qrImg.onload = () => {
                     qrImg.classList.remove('hidden');
                     qrPlaceholder.classList.add('hidden');
@@ -667,6 +699,7 @@
             } else {
                 numEl.innerText = 'N/A';
                 amountEl.innerText = '-- MXN';
+                if (pkgDisplayEl) pkgDisplayEl.innerText = '--';
                 qrImg.classList.add('hidden');
                 qrPlaceholder.classList.remove('hidden');
             }
