@@ -362,15 +362,16 @@
 
                         <!-- Dynamic QR and Number Display (Right) -->
                         <div class="order-1 md:order-2 flex flex-col items-center justify-center bg-white p-5 rounded-2xl border-2 border-dashed border-slate-200 text-center relative overflow-hidden">
-                                <span>Loading...</span>
+                            <div class="w-40 h-40 bg-slate-50 border border-slate-200 rounded-xl mb-4 flex items-center justify-center shadow-sm p-2">
+                                <img id="oxxo-qr-img" src="" alt="OXXO Transfer QR" class="w-full h-full object-contain hidden">
+                                <span id="oxxo-qr-placeholder" class="text-slate-400 font-medium text-sm">Loading QR...</span>
                             </div>
-                        </div>
-
-                        <div class="text-xl font-mono font-bold text-slate-900 mb-1 tracking-wider" id="oxxo-xfer-num">---------</div>
-                        <div class="text-xs font-medium text-slate-500 flex items-center justify-center gap-2">
-                            <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
-                            <span class="text-slate-300">|</span>
-                            <span>Amt: <span id="oxxo-amount" class="font-bold text-red-600 text-sm">-- MXN</span></span>
+                            <div class="text-xl font-mono font-bold text-slate-900 mb-1 tracking-wider" id="oxxo-xfer-num">---------</div>
+                            <div class="text-xs font-medium text-slate-500 flex items-center justify-center gap-2">
+                                <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
+                                <span class="text-slate-300">|</span>
+                                <span>Amt: <span id="oxxo-amount" class="font-bold text-red-600 text-sm">-- MXN</span></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -643,7 +644,6 @@
             selectedPackageName = pkgName;
             selectedPackagePrice = price;
             updateMixPayButton();
-            // Note: OXXO updates are now handled independently via its own dropdown selector.
         }
 
         function updateMixPayButton() {
@@ -658,7 +658,7 @@
         }
 
         function fetchOxxoData() {
-            // Use standard cache control instead of URL query parameters which break in blob/file environments
+            // Fetch relative to current repository location on GitHub Pages
             fetch('oxxo.csv', { cache: 'no-store' })
                 .then(response => {
                     if (!response.ok) throw new Error('OXXO data not found or blocked by browser');
@@ -668,7 +668,7 @@
                     processOxxoCsv(csv);
                 })
                 .catch(err => {
-                    console.warn('OXXO fetch error, showing unavailable state:', err);
+                    console.warn('OXXO fetch error:', err);
                     showOxxoUnavailable();
                 });
         }
@@ -691,7 +691,6 @@
                 if (parts.length >= 4) {
                     const gb = parts[0];
                     const pkgKey = gb + 'GB';
-                    // Structure: { '1GB': { duration: '7', mxn: '2.99', xfernum: '1234' } }
                     oxxoData[pkgKey] = {
                         duration: parts[1],
                         mxn: parts[2],
@@ -699,7 +698,6 @@
                     };
                     hasData = true;
                     
-                    // Add option to custom OXXO dropdown
                     const opt = document.createElement('button');
                     opt.className = 'w-full text-left px-5 py-4 hover:bg-slate-50 cursor-pointer text-sm font-medium text-slate-700 transition-colors focus:bg-slate-100 focus:outline-none flex justify-between items-center';
                     opt.innerHTML = `<span class="font-bold text-slate-800">${pkgKey}</span> <span class="text-slate-500 bg-slate-100 px-2 py-1 rounded border border-slate-200 font-mono">$${parts[2]} MXN</span>`;
@@ -718,7 +716,6 @@
                 document.getElementById('oxxo-unavailable').classList.add('hidden');
                 document.getElementById('oxxo-content').classList.remove('hidden');
                 
-                // Initialize default selection
                 const firstKey = Object.keys(oxxoData)[0];
                 selectedOxxoPackageName = firstKey;
                 document.getElementById('custom-oxxo-selected').innerHTML = `${firstKey} - <span class="text-slate-500 font-mono ml-1">$${oxxoData[firstKey].mxn} MXN</span>`;
@@ -829,10 +826,6 @@
             errorBlock.classList.add('hidden');
             contentBlock.classList.add('hidden');
             
-            // Set image source and handle load/error
-            const imgPath = `/data/${esimId}.png`;
-            qrImg.src = imgPath;
-            
             let imgLoaded = false;
             let csvLoaded = false;
             let hasError = false;
@@ -849,11 +842,19 @@
                 }
             };
 
-            qrImg.onload = () => { imgLoaded = true; checkCompletion(); };
-            qrImg.onerror = () => { hasError = true; checkCompletion(); };
+            // Image handler using relative path
+            qrImg.onload = () => { 
+                imgLoaded = true; 
+                checkCompletion(); 
+            };
+            qrImg.onerror = () => { 
+                hasError = true; 
+                checkCompletion(); 
+            };
+            qrImg.src = `data/${esimId}.png`;
 
-            // Fetch CSV
-            fetch(`/data/${esimId}.csv`, { cache: 'no-store' })
+            // Fetch CSV using relative path
+            fetch(`data/${esimId}.csv`, { cache: 'no-store' })
                 .then(res => {
                     if (!res.ok) throw new Error('CSV missing');
                     return res.text();
@@ -873,19 +874,6 @@
                     hasError = true;
                     checkCompletion();
                 });
-                
-            // Fallback mock logic for DEMO accounts to show beautiful UI in tests where /data/ doesn't exist
-            if (esimId.includes('-DEMO') || esimId.includes('-EXPIRED')) {
-                setTimeout(() => {
-                    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=LPA:1$rsp-3104.idemia.io$QFIR1-LJLHP-OHGUR-PWBXD&margin=0`;
-                    smdpEl.innerText = 'rsp-3104.idemia.io';
-                    actCodeEl.innerText = 'QFIC1-LJLHP-OHGUR-PQBXD';
-                    imgLoaded = true;
-                    csvLoaded = true;
-                    hasError = false;
-                    checkCompletion();
-                }, 800); // Simulate network delay
-            }
         }
 
         function loadSampleId(sampleId) {
