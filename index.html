@@ -242,13 +242,14 @@
 
             <!-- Card 3: Pay with OXXO Section -->
             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col gap-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-100 pb-4">
                     <h3 class="font-bold text-slate-900 text-lg flex items-center gap-3">
                         <span class="px-2.5 py-1 rounded-md bg-red-600 text-white font-bold text-xs tracking-wider shadow-sm">OXXO</span>
                         <span>Pay with Cash at OXXO</span>
                     </h3>
-                    <div class="flex items-center">
-                        <span class="bg-amber-100 text-amber-900 font-bold px-2 py-1 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono">Prices in MXN</span>
+                    <div class="flex flex-col sm:items-end">
+                        <span class="bg-amber-100 text-amber-900 font-bold px-2 py-1 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">Prices in MXN</span>
+                        <span class="text-[10px] text-slate-400 font-medium mt-1 text-left sm:text-right max-w-[170px] leading-tight">Subject to frequent change based on market value</span>
                     </div>
                 </div>
 
@@ -617,25 +618,39 @@
             const cryptoGrid = document.getElementById('packages-grid');
             cryptoGrid.innerHTML = ''; 
 
+            let bestValueCard = null;
+            let bestValuePkgName = '';
+            let bestValuePrice = 0;
+            let firstCard = null;
+            let firstPkgName = '';
+            let firstPrice = 0;
+
             for (let i = 1; i < lines.length; i++) {
                 const parts = lines[i].split(',').map(p => p.trim());
                 if (parts.length >= 3) {
                     const gb = parts[0];
                     const duration = parts[1];
                     const usd = parts[2];
+                    const name = parts.length > 3 ? parts[3] : 'DATA PLAN';
                     
                     const pkgName = gb + 'GB';
                     const price = parseFloat(usd);
                     
                     hasData = true;
+                    const isBestValue = name.toLowerCase() === 'best value';
                     
                     const card = document.createElement('div');
                     card.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
                     card.onclick = function() { selectPackage(this, pkgName, price); };
                     
+                    let badgeHTML = isBestValue ? `<span class="inline-block bg-amber-400 text-amber-950 text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider shadow-sm ml-2 -translate-y-0.5">Best Value</span>` : '';
+
                     card.innerHTML = `
                         <div>
-                            <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Data Plan</div>
+                            <div class="flex items-center">
+                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider truncate">${name}</div>
+                                ${badgeHTML}
+                            </div>
                             <div class="text-2xl font-extrabold text-slate-900 mt-1">${gb} GB</div>
                             <div class="text-[11px] text-slate-500 font-medium">Valid ${duration} Days</div>
                         </div>
@@ -648,7 +663,14 @@
                     cryptoGrid.appendChild(card);
                     
                     if (i === 1) {
-                        selectPackage(card, pkgName, price);
+                        firstCard = card;
+                        firstPkgName = pkgName;
+                        firstPrice = price;
+                    }
+                    if (isBestValue) {
+                        bestValueCard = card;
+                        bestValuePkgName = pkgName;
+                        bestValuePrice = price;
                     }
                 }
             }
@@ -657,6 +679,12 @@
                 document.getElementById('crypto-unavailable').classList.add('hidden');
                 document.getElementById('packages-grid').classList.remove('hidden');
                 document.getElementById('crypto-payment-section').classList.remove('hidden');
+
+                if (bestValueCard) {
+                    selectPackage(bestValueCard, bestValuePkgName, bestValuePrice);
+                } else if (firstCard) {
+                    selectPackage(firstCard, firstPkgName, firstPrice);
+                }
             } else {
                 showCryptoUnavailable();
             }
@@ -694,8 +722,9 @@
             const oxxoList = document.getElementById('oxxo-pkg-list');
             oxxoList.innerHTML = ''; 
             
-            // For auto-selecting the first item
+            // For auto-selecting
             let firstPkgKey = '';
+            let bestValuePkgKey = '';
 
             for (let i = 1; i < lines.length; i++) {
                 const parts = lines[i].split(',').map(p => p.trim());
@@ -703,18 +732,43 @@
                     const gb = parts[0];
                     const pkgKey = gb + 'GB';
                     
+                    let xfernum = parts[3];
+                    let name = 'DATA PLAN';
+
+                    if (parts.length >= 5) {
+                        name = parts[4];
+                        // Handling if Name and Transfer Number column order was swapped
+                        if (/^\d+$/.test(parts[4]) && !/^\d+$/.test(parts[3])) {
+                            name = parts[3];
+                            xfernum = parts[4];
+                        }
+                    } else if (parts.length === 4) {
+                        // If no Transfer Number exists in CSV
+                        if (!/^\d{5,}$/.test(parts[3])) {
+                            name = parts[3];
+                            xfernum = 'PENDING';
+                        }
+                    }
+
+                    const isBestValue = name.toLowerCase() === 'best value';
+                    
                     oxxoData[pkgKey] = {
                         duration: parts[1],
                         mxn: parts[2],
-                        xfernum: parts[3]
+                        xfernum: xfernum,
+                        name: name,
+                        isBestValue: isBestValue
                     };
                     hasData = true;
                     if (!firstPkgKey) firstPkgKey = pkgKey;
+                    if (isBestValue) bestValuePkgKey = pkgKey;
                     
+                    let badgeHTML = isBestValue ? `<span class="bg-amber-400 text-amber-950 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ml-2 inline-block shadow-sm">Best Value</span>` : '';
+
                     // Create Custom Dropdown Item
                     const li = document.createElement('li');
                     li.className = 'px-5 py-3.5 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 flex justify-between items-center transition-colors';
-                    li.innerHTML = `<div class="flex flex-col"><span class="font-bold text-slate-800 text-lg">${pkgKey} Data Plan</span><span class="text-xs text-slate-500 font-medium">Valid for ${parts[1]}</span></div> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
+                    li.innerHTML = `<div class="flex flex-col"><div class="flex items-center"><span class="font-bold text-slate-800 text-lg">${name}</span>${badgeHTML}</div><span class="text-xs text-slate-500 font-medium">Valid for ${parts[1]} days</span></div> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
                     
                     li.onclick = (e) => {
                         e.stopPropagation();
@@ -731,8 +785,12 @@
                 document.getElementById('oxxo-content').classList.remove('hidden');
                 document.getElementById('oxxo-custom-select-container').classList.remove('hidden');
                 
-                // Initialize default selection
-                selectOxxoPackage(firstPkgKey);
+                // Initialize selection prioritizing "Best Value"
+                if (bestValuePkgKey) {
+                    selectOxxoPackage(bestValuePkgKey);
+                } else {
+                    selectOxxoPackage(firstPkgKey);
+                }
             } else {
                 showOxxoUnavailable();
             }
@@ -755,7 +813,8 @@
             // Update Label of dropdown button
             const data = oxxoData[pkgName];
             if (data) {
-                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><span class="font-bold text-slate-900">${pkgName} Data Plan</span><span class="text-xs text-slate-500 font-medium">Valid for ${data.duration}</span></div> <span class="text-red-600 font-bold px-3 py-1 bg-red-50 rounded border border-red-100 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
+                let badgeHTML = data.isBestValue ? `<span class="bg-amber-400 text-amber-950 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ml-2 shadow-sm inline-block">Best Value</span>` : '';
+                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="font-bold text-slate-900">${data.name}</span>${badgeHTML}</div><span class="text-xs text-slate-500 font-medium">Valid for ${data.duration} days</span></div> <span class="text-red-600 font-bold px-3 py-1 bg-red-50 rounded border border-red-100 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
                 document.getElementById('oxxo-dropdown-label').className = "text-slate-800 text-base flex-grow flex items-center justify-between";
             }
             updateOxxoView();
