@@ -186,12 +186,15 @@
 
                 <!-- Section 2: Data Packages Selection -->
                 <div class="space-y-3">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-100 pb-2.5">
                         <div>
                             <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                                 <span>Select Top-Up Data Package</span>
                             </h3>
-                            <p class="text-xs text-slate-500 mt-1">Choose the mobile data amount to load onto eSIM <span id="selected-profile-tag" class="font-mono text-indigo-600 font-semibold">--</span>. <span class="bg-amber-100 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-200/60 ml-1 shadow-sm">All prices are in USD.</span></p>
+                            <p class="text-xs text-slate-500 mt-1">Choose the mobile data amount to load onto eSIM <span id="selected-profile-tag" class="font-mono text-indigo-600 font-semibold">--</span>.</p>
+                        </div>
+                        <div class="flex flex-col sm:items-end shrink-0 mt-2 sm:mt-0">
+                            <span class="bg-amber-100 text-amber-900 font-bold px-2 py-1 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">PRICES IN USD</span>
                         </div>
                     </div>
 
@@ -643,13 +646,12 @@
                     card.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
                     card.onclick = function() { selectPackage(this, pkgName, price); };
                     
-                    let badgeHTML = isBestValue ? `<span class="inline-block bg-amber-400 text-amber-950 text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider shadow-sm ml-2 -translate-y-0.5">Best Value</span>` : '';
+                    let nameHTML = isBestValue ? `<div class="text-xs font-bold text-amber-600 uppercase font-mono tracking-wider truncate bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/50 inline-block shadow-sm">${name}</div>` : `<div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider truncate">${name}</div>`;
 
                     card.innerHTML = `
                         <div>
                             <div class="flex items-center">
-                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider truncate">${name}</div>
-                                ${badgeHTML}
+                                ${nameHTML}
                             </div>
                             <div class="text-2xl font-extrabold text-slate-900 mt-1">${gb} GB</div>
                             <div class="text-[11px] text-slate-500 font-medium">Valid ${duration} Days</div>
@@ -753,6 +755,7 @@
                     const isBestValue = name.toLowerCase() === 'best value';
                     
                     oxxoData[pkgKey] = {
+                        gb: gb,
                         duration: parts[1],
                         mxn: parts[2],
                         xfernum: xfernum,
@@ -763,12 +766,13 @@
                     if (!firstPkgKey) firstPkgKey = pkgKey;
                     if (isBestValue) bestValuePkgKey = pkgKey;
                     
-                    let badgeHTML = isBestValue ? `<span class="bg-amber-400 text-amber-950 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ml-2 inline-block shadow-sm">Best Value</span>` : '';
+                    let nameClasses = isBestValue ? "font-bold text-amber-600 text-lg bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50" : "font-bold text-slate-800 text-lg";
+                    let displayTitle = `${gb}GB - ${name}`;
 
                     // Create Custom Dropdown Item
                     const li = document.createElement('li');
                     li.className = 'px-5 py-3.5 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 flex justify-between items-center transition-colors';
-                    li.innerHTML = `<div class="flex flex-col"><div class="flex items-center"><span class="font-bold text-slate-800 text-lg">${name}</span>${badgeHTML}</div><span class="text-xs text-slate-500 font-medium">Valid for ${parts[1]} days</span></div> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
+                    li.innerHTML = `<div class="flex flex-col"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${parts[1]} days</span></div> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
                     
                     li.onclick = (e) => {
                         e.stopPropagation();
@@ -813,8 +817,9 @@
             // Update Label of dropdown button
             const data = oxxoData[pkgName];
             if (data) {
-                let badgeHTML = data.isBestValue ? `<span class="bg-amber-400 text-amber-950 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ml-2 shadow-sm inline-block">Best Value</span>` : '';
-                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="font-bold text-slate-900">${data.name}</span>${badgeHTML}</div><span class="text-xs text-slate-500 font-medium">Valid for ${data.duration} days</span></div> <span class="text-red-600 font-bold px-3 py-1 bg-red-50 rounded border border-red-100 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
+                let nameClasses = data.isBestValue ? "font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50" : "font-bold text-slate-900";
+                let displayTitle = `${data.gb}GB - ${data.name}`;
+                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${data.duration} days</span></div> <span class="text-red-600 font-bold px-3 py-1 bg-red-50 rounded border border-red-100 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
                 document.getElementById('oxxo-dropdown-label').className = "text-slate-800 text-base flex-grow flex items-center justify-between";
             }
             updateOxxoView();
