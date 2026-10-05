@@ -438,6 +438,10 @@
                         
                         <div class="space-y-3">
                             <div>
+                                <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">Full Activation String</span>
+                                <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 break-all select-all shadow-inner" id="guide-full-string">Pending...</div>
+                            </div>
+                            <div>
                                 <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">SM-DP+ Address</span>
                                 <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 break-all select-all shadow-inner" id="guide-smdp">Pending...</div>
                             </div>
@@ -884,10 +888,12 @@
             const manualSec = document.getElementById('guide-manual-section');
             const smdpEl = document.getElementById('guide-smdp');
             const actCodeEl = document.getElementById('guide-act-code');
+            const fullStringEl = document.getElementById('guide-full-string');
             
             manualSec.classList.add('opacity-50', 'pointer-events-none');
             smdpEl.innerText = 'Pending...';
             actCodeEl.innerText = 'Pending...';
+            fullStringEl.innerText = 'Pending...';
 
             // Reset QR state
             const qrImg = document.getElementById('guide-qr-img');
@@ -921,10 +927,16 @@
                 })
                 .then(csvText => {
                     const parts = csvText.split(',').map(p => p.trim());
-                    if (parts.length >= 3) {
-                        // idx 0 = Full Activation String, idx 1 = SM-DP+, idx 2 = Activation code
-                        smdpEl.innerText = parts[1] || 'N/A';
-                        actCodeEl.innerText = parts[2] || 'N/A';
+                    if (parts.length >= 2) {
+                        const smdp = parts[0] || 'N/A';
+                        const actCode = parts[1] || 'N/A';
+                        
+                        smdpEl.innerText = smdp;
+                        actCodeEl.innerText = actCode;
+                        
+                        // Construct the Full Activation String using the LPA:1$ standard format
+                        fullStringEl.innerText = (smdp !== 'N/A' && actCode !== 'N/A') ? `LPA:1$${smdp}$${actCode}` : 'N/A';
+                        
                         manualSec.classList.remove('opacity-50', 'pointer-events-none');
                     }
                 })
@@ -932,6 +944,7 @@
                     console.warn(`Could not load CSV for ${id}:`, err);
                     smdpEl.innerText = 'Unavailable';
                     actCodeEl.innerText = 'Unavailable';
+                    fullStringEl.innerText = 'Unavailable';
                 });
         }
 
