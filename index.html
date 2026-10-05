@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Libres - eSIM Data Viewer & Top Up</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Space Grotesk & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 3s infinite ease-in-out;
+        }
+
+        /* Custom flashy button style mimicking Button.svg */
+        .btn-flashy {
+            background: linear-gradient(#27272a, #27272a) padding-box,
+                        linear-gradient(to right, #b7b5f5, #5fd0c0) border-box; /* matches purple/teal gradient */
+            border: 2px solid transparent;
+            border-radius: 9999px; /* pill shape */
+            color: #f8fafc;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .btn-flashy:hover {
+            box-shadow: 0 10px 25px -5px rgba(95, 208, 192, 0.4), 0 8px 10px -6px rgba(183, 181, 245, 0.4);
+            transform: translateY(-2px);
+            color: #ffffff;
+        }
+        
+        .btn-flashy:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-50 text-slate-800 font-sans font-light antialiased flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- 4G & 5G Network Support Top Banner -->
+    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-2 px-4 border-b border-indigo-900/50 shadow-xs">
+        <div class="max-w-5xl mx-auto flex items-center justify-center text-xs">
+            <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-1">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded bg-indigo-500/25 text-indigo-300 font-bold text-[10px] border border-indigo-400/30 tracking-wider font-mono">4G LTE</span>
+                    <span class="text-indigo-400 font-bold">+</span>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-500/25 text-emerald-300 font-bold text-[10px] border border-emerald-400/40 tracking-wider font-mono">5G ULTRA</span>
+                </div>
+                <span class="h-3 w-px bg-slate-700 hidden sm:inline-block"></span>
+                <span class="font-medium text-slate-200 hidden sm:inline-block tracking-tight">
+                    High-Speed Mobile Network Supported Nationwide
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="w-full z-30 pt-6 pb-2">
+        <div class="max-w-5xl mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="flex flex-col justify-center">
+                    <!-- Bold Logo Implementation (No Animation) -->
+                    <a href="?" class="block">
+                        <img src="LogoBold.svg" alt="Datos Libres" class="w-[260px] object-contain" id="header-title">
+                    </a>
+                    <p class="text-[19px] font-bold tracking-wide mt-1.5 text-transparent bg-clip-text bg-gradient-to-r from-[#d3bdf8] via-[#a3d0ed] to-[#5fd0c0] leading-none" id="header-subtitle">eSIM y Datos para celular</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button onclick="toggleEsimGuide()" class="btn-flashy inline-flex items-center px-4 py-2 text-xs font-bold cursor-pointer">
+                    <svg class="w-4 h-4 mr-2 text-[#5fd0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    eSIM Guide
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-grow space-y-6">
+        
+        <!-- Separated eSIM Lookup Box -->
+        <div id="esim-lookup-card" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="5" y="4" width="14" height="16" rx="2" stroke-width="2"></rect>
+                        <path d="M9 8h6M9 12h6M9 16h4" stroke-width="2" stroke-linecap="round"></path>
+                        <path d="M3 8h2M3 12h2M3 16h2M19 8h2M19 12h2M19 16h2" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-slate-900">eSIM Number Lookup</h2>
+                    <p class="text-xs text-slate-500">Lookup eSIM data balance.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="flex w-full sm:w-auto items-center gap-2">
+                    <input type="text" id="manual-id-input" placeholder="Enter eSIM number..." class="w-full sm:w-64 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-full focus:ring-2 focus:ring-[#5fd0c0] focus:border-[#5fd0c0] focus:bg-white focus:outline-none text-slate-800 font-mono transition-all" onkeydown="if(event.key==='Enter') loadManualId()">
+                    <button onclick="loadManualId()" class="btn-flashy px-5 py-2.5 text-xs font-bold cursor-pointer shrink-0">
+                        Load eSIM
+                    </button>
+                </div>
+                
+                <div class="hidden items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+                    <button onclick="loadSampleId('89353082711108204603')" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-full transition cursor-pointer shrink-0 border border-slate-200">
+                        Sample Live
+                    </button>
+                    <button onclick="loadDemoMode('active')" class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200/60 transition cursor-pointer shrink-0">
+                        Demo Active
+                    </button>
+                    <button onclick="loadDemoMode('expired')" class="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold rounded-full border border-rose-200/60 transition cursor-pointer shrink-0">
+                        Demo Expired
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Up Wrapper (Cards separated by gaps) -->
+        <div id="topup-card" class="hidden flex flex-col gap-6">
+            
+            <!-- Card 1: Data Packages & Crypto -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
+                <!-- Section 1: Active eSIM Overview Banner -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                    <div class="space-y-1 w-full">
+                        <div class="flex items-center justify-between sm:justify-start space-x-2">
+                            <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-600 text-white shadow-2xs font-mono">
+                                <span>eSIM TOP UP</span>
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path></svg>
+                            </span>
+                            <span id="profile-status-badge" class="px-2.5 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 font-semibold font-mono">
+                                Checking Status
+                            </span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 pt-1.5">
+                            <h2 class="text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-sans break-all" id="display-id">Loading eSIM...</h2>
+                            
+                            <button onclick="copyCurrentUrl()" title="Copy Direct eSIM Link" class="text-slate-400 hover:text-indigo-600 p-2 rounded-xl hover:bg-slate-100 transition cursor-pointer shrink-0">
+                                <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 002-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mt-1" id="profile-status-subtext">Select a data package below to top up high-speed data</p>
+                    </div>
+                </div>
+
+                <!-- Section 2: Data Packages Selection -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <span>Select Top-Up Data Package</span>
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1">Choose the mobile data amount to load onto eSIM <span id="selected-profile-tag" class="font-mono text-indigo-600 font-semibold">--</span>. <span class="bg-amber-100 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-200/60 ml-1 shadow-sm">All prices are in USD.</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Package Cards Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="packages-grid">
+                        <!-- 1GB Card -->
+                        <div onclick="selectPackage(this, '1GB', 1000, 3.99)" class="package-card cursor-pointer border-2 border-[#5fd0c0] bg-gradient-to-br from-[#b7b5f5]/10 to-[#5fd0c0]/10 rounded-2xl p-4 transition hover:shadow-md relative flex flex-col justify-between h-full">
+                            <span class="absolute -top-2 -right-2 bg-[#dec7f4] text-slate-900 text-[9px] font-bold px-2 py-1 rounded-full uppercase font-mono shadow-xs">Selected</span>
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Starter</div>
+                                <div class="text-2xl font-extrabold text-slate-900 mt-1">1 GB</div>
+                                <div class="text-[11px] text-slate-500 font-medium">Valid 7 Days</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200/60 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-400 font-medium">Price</span>
+                                <span class="text-base font-bold text-slate-900 font-mono">$3.99</span>
+                            </div>
+                        </div>
+
+                        <!-- 2GB Card -->
+                        <div onclick="selectPackage(this, '2GB', 2000, 6.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Basic</div>
+                                <div class="text-2xl font-extrabold text-slate-900 mt-1">2 GB</div>
+                                <div class="text-[11px] text-slate-500 font-medium">Valid 15 Days</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-400 font-medium">Price</span>
+                                <span class="text-base font-bold text-slate-900 font-mono">$6.99</span>
+                            </div>
+                        </div>
+
+                        <!-- 3GB Card -->
+                        <div onclick="selectPackage(this, '3GB', 3000, 8.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Popular</div>
+                                <div class="text-2xl font-extrabold text-slate-900 mt-1">3 GB</div>
+                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-400 font-medium">Price</span>
+                                <span class="text-base font-bold text-slate-900 font-mono">$8.99</span>
+                            </div>
+                        </div>
+
+                        <!-- 5GB Card -->
+                        <div onclick="selectPackage(this, '5GB', 5000, 11.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Value</div>
+                                    <span class="bg-amber-400 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase font-mono tracking-wider shadow-sm">Best Value</span>
+                                </div>
+                                <div class="text-2xl font-extrabold text-slate-900 mt-1">5 GB</div>
+                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-400 font-medium">Price</span>
+                                <span class="text-base font-bold text-slate-900 font-mono">$11.99</span>
+                            </div>
+                        </div>
+
+                        <!-- 10GB Card -->
+                        <div onclick="selectPackage(this, '10GB', 10000, 16.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Pro Data</div>
+                                <div class="text-2xl font-extrabold text-slate-900 mt-1">10 GB</div>
+                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-400 font-medium">Price</span>
+                                <span class="text-base font-bold text-slate-900 font-mono">$16.99</span>
+                            </div>
+                        </div>
+
+                        <!-- 20GB Card -->
+                        <div onclick="selectPackage(this, '20GB', 20000, 25.99)" class="package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full">
+                            <div>
+                                <div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">Max Data</div>
+                                <div class="text-2xl font-extrabold text-slate-900 mt-1">20 GB</div>
+                                <div class="text-[11px] text-slate-500 font-medium">Valid 30 Days</div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-400 font-medium">Price</span>
+                                <span class="text-base font-bold text-slate-900 font-mono">$25.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Crypto Payment Info -->
+                <div class="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
+                    <!-- Crypto Section Left -->
+                    <div class="flex flex-col items-center sm:items-start space-y-2.5 w-full sm:w-auto">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">We accept crypto</span>
+                        <div class="flex items-center space-x-3 text-slate-400">
+                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
+                            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
+                            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="Tether" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
+                            <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" alt="USDC" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
+                            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Top Up Action Right -->
+                    <div class="flex flex-col items-center sm:items-end w-full sm:w-auto">
+                        <a id="mixpay-btn" href="#" target="_blank" class="btn-flashy w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 text-sm font-bold cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                            <span id="mixpay-btn-label">Top Up</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Prominent Warning Notice -->
+            <div class="text-sm text-amber-950 flex items-start gap-3.5 w-full bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-2xl border-2 border-amber-300/80 shadow-md font-medium">
+                <div class="w-8 h-8 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <div class="leading-relaxed">
+                    <strong class="block font-bold text-amber-950 mb-1 text-base">Important Activation Notice:</strong>
+                    Allow for up to 12 hours for activation of plan after payment confirmation. We process each request manually to ensure anonymity. Please contact us on <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="font-bold underline decoration-amber-950/30 hover:decoration-amber-950 text-amber-900 hover:text-amber-700 transition">@datoslibresmx</a>.
+                </div>
+            </div>
+
+            <!-- Card 3: Pay with OXXO Section -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col gap-5">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded bg-red-600 text-white font-bold text-[10px] tracking-wider">OXXO</span>
+                        <span>Pay with Cash at OXXO</span>
+                    </h3>
+                    <span class="bg-amber-100 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono">Prices in MXN</span>
+                </div>
+
+                <div id="oxxo-unavailable" class="hidden flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-xl shadow-xs">
+                    <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <p class="text-sm font-bold text-red-700">OXXO deposits are currently unavailable. Please check back later or use Crypto.</p>
+                </div>
+
+                <div id="oxxo-content" class="hidden grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+                    <!-- 4 Step Guide (Left) -->
+                    <div class="md:col-span-3 space-y-3">
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">1</span>
+                            <span class="text-sm font-medium text-slate-700">Select your preferred package above</span>
+                        </div>
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">2</span>
+                            <span class="text-sm font-medium text-slate-700">Write down the transfer number</span>
+                        </div>
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">3</span>
+                            <span class="text-sm font-medium text-slate-700">Pay with cash at OXXO</span>
+                        </div>
+                        <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100 items-center">
+                            <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm">4</span>
+                            <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline transition">@datoslibresmx</a></span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic QR and Number Display (Right) -->
+                    <div class="md:col-span-2 flex flex-col items-center justify-center bg-white p-5 rounded-2xl border-2 border-dashed border-slate-200 text-center relative h-full">
+                        <div class="absolute -top-3 bg-white px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">Transfer Details</div>
+                        
+                        <div class="w-32 h-32 mb-4 bg-white p-2 border border-slate-100 rounded-xl shadow-sm relative flex items-center justify-center">
+                            <img id="oxxo-qr-img" src="" alt="OXXO QR" class="w-full h-full object-contain hidden transition-opacity duration-300">
+                            <div id="oxxo-qr-placeholder" class="w-full h-full flex flex-col items-center justify-center text-xs text-slate-400 gap-2">
+                                <svg class="w-6 h-6 text-slate-300 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                <span>Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xl font-mono font-bold text-slate-900 mb-1 tracking-wider" id="oxxo-xfer-num">---------</div>
+                        <div class="text-xs font-medium text-slate-500">Amount: <span id="oxxo-amount" class="font-bold text-slate-800 text-sm ml-1">-- MXN</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Active Plan Banner -->
+        <div id="second-underline-container" class="hidden bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-5 shadow-xs flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+                <span class="block text-[11px] font-bold text-indigo-500 uppercase tracking-wider font-mono">Active Plan</span>
+                <p class="text-sm font-bold text-slate-900" id="second-underline-text">Loading plan details...</p>
+            </div>
+        </div>
+
+        <!-- Content Feed Section -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <div class="flex items-center space-x-3">
+                    <h3 class="font-bold text-slate-900 text-sm">eSIM Status & Usage Feed</h3>
+                    <span id="item-count-badge" class="px-2.5 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 font-semibold font-mono">0 items</span>
+                </div>
+                <button onclick="fetchData()" class="inline-flex items-center text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition cursor-pointer bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100">
+                    <svg id="refresh-icon" class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Refresh Data
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="p-12 text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-[#5fd0c0] border-t-transparent mb-4"></div>
+                <p class="text-sm font-bold text-slate-700">Fetching eSIM details...</p>
+                <p class="text-xs text-slate-400 mt-1 font-mono">Retrieving status from network server</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state" class="hidden p-8 text-center">
+                <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h4 class="text-base font-bold text-slate-900 mb-1" id="error-title">Failed to load data</h4>
+                <p class="text-sm text-slate-500 max-w-md mx-auto mb-6" id="error-desc">Unable to fetch target eSIM. Check network or try a demo eSIM.</p>
+                <div class="flex items-center justify-center space-x-3">
+                    <button onclick="fetchData()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-full transition cursor-pointer">Retry Fetch</button>
+                    <button onclick="loadDemoMode('active')" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full border border-indigo-200 transition cursor-pointer">View Demo Data</button>
+                </div>
+            </div>
+
+            <!-- Items List Container -->
+            <div id="items-container" class="hidden divide-y divide-slate-100">
+                <!-- Dynamically injected list cards -->
+            </div>
+
+            <!-- Empty Data State / eSIM Not Found -->
+            <div id="empty-state" class="hidden p-8 sm:p-12 text-center">
+                <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <h4 class="text-lg font-bold text-slate-900 mb-2" id="empty-state-title">eSIM number wasn't found</h4>
+                <p class="text-sm text-slate-500 max-w-md mx-auto leading-relaxed" id="empty-state-desc">No data could be found. Please check the eSIM number in the search box above and try again.</p>
+            </div>
+        </div>
+
+        <!-- Note Box Above Footer -->
+        <div class="bg-slate-100/80 border border-slate-200/80 rounded-2xl p-4 text-center shadow-2xs">
+            <p class="text-xs font-medium text-slate-600 flex items-start sm:items-center justify-center gap-2 text-left sm:text-center">
+                <svg class="w-4 h-4 text-[#b7b5f5] shrink-0 mt-0.5 sm:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span><strong>Note:</strong> Any future top up plans will automatically stack and begin after the current active plan ends. Future plans are not shown here.</span>
+            </p>
+        </div>
+    </main>
+
+    <!-- eSIM Installation Modal -->
+    <div id="esim-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200">
+            <button onclick="toggleEsimGuide()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#b7b5f5] to-[#5fd0c0] text-slate-900 flex items-center justify-center shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">eSIM Setup & Installation</h3>
+                    <p class="text-sm text-slate-500 mt-0.5">Quick steps to activate your mobile profile</p>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-sm text-slate-600 border-t border-slate-100 pt-6">
+                <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200">1</span>
+                    <div class="pt-0.5">
+                        <strong class="text-slate-900 block mb-1">iOS (iPhone):</strong>
+                        Go to Settings &gt; Cellular &gt; Add eSIM / Cellular Plan &gt; Scan QR code or enter activation details.
+                    </div>
+                </div>
+                <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200">2</span>
+                    <div class="pt-0.5">
+                        <strong class="text-slate-900 block mb-1">Android (Samsung/Pixel):</strong>
+                        Go to Settings &gt; Connections &gt; SIM Manager &gt; Add eSIM &gt; Scan QR code.
+                    </div>
+                </div>
+                <div class="flex gap-4 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                    <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200">3</span>
+                    <div class="pt-0.5">
+                        <strong class="text-slate-900 block mb-1">Data Roaming:</strong>
+                        Ensure <strong>Data Roaming</strong> is turned ON for the eSIM profile after installation.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-slate-100 flex justify-end">
+                <button onclick="toggleEsimGuide()" class="btn-flashy px-6 py-2.5 text-sm font-bold cursor-pointer">
+                    Got it, close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm font-medium text-slate-400 mt-auto">
+        <p>Datos Libres™ • eSIM y Datos para celular</p>
+    </footer>
+
+    <!-- Need Help Floating Button -->
+    <a href="https://x.com/messages/compose?recipient_id=2099655010283868161" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#b7b5f5] to-[#5fd0c0] text-slate-900 shadow-xl border-2 border-white/60 hover:shadow-2xl hover:border-white hover:scale-105 transition-all duration-300 cursor-pointer">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        <span class="tracking-wide font-bold text-sm">Need help?</span>
+    </a>
+
+    <script>
+        // Endpoint URL expects "?id=" as param inside the fetch
+        const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzb7dIRibYdcw7pnHnyuh9yxBYNWG5X_xAIavX5b_ewrODIqK7nP3hwyPu8RFoT_CvM/exec";
+        let urlId = '';
+        let selectedPackageName = '1GB';
+        let selectedPackagePrice = 3.99;
+        
+        // OXXO Config
+        let oxxoData = {};
+
+        // Blacklist Config
+        let blacklistedEsims = new Set();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialId = urlParams.get('eid');
+
+            if (initialId && initialId.trim() !== '') {
+                setEsimNumber(initialId.trim());
+            } else {
+                document.getElementById('display-id').innerText = 'No eSIM Specified';
+                document.getElementById('selected-profile-tag').innerText = 'No eSIM Specified';
+                document.getElementById('profile-status-subtext').innerText = 'Please enter an eSIM number in the search box above or choose a demo eSIM.';
+                document.getElementById('profile-status-subtext').className = 'text-xs text-slate-500 mt-1';
+                hideLoading();
+                document.getElementById('topup-card').classList.add('hidden');
+                document.getElementById('items-container').classList.add('hidden');
+                document.getElementById('empty-state').classList.remove('hidden');
+                updateVisibility();
+            }
+
+            // Load OXXO data on initialization
+            fetchOxxoData();
+            fetchBlacklist();
+        });
+
+        function updateVisibility() {
+            if (urlId && urlId.trim() !== '') {
+                document.getElementById('esim-lookup-card').classList.add('hidden');
+            } else {
+                document.getElementById('esim-lookup-card').classList.remove('hidden');
+            }
+        }
+
+        function selectPackage(cardEl, pkgName, mbVal, price) {
+            document.querySelectorAll('.package-card').forEach(c => {
+                c.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
+                const badge = c.querySelector('.absolute');
+                if (badge) badge.remove();
+            });
+
+            cardEl.className = 'package-card cursor-pointer border-2 border-[#5fd0c0] bg-gradient-to-br from-[#b7b5f5]/10 to-[#5fd0c0]/10 rounded-2xl p-4 transition hover:shadow-md relative flex flex-col justify-between h-full';
+            
+            const selectedBadge = document.createElement('span');
+            selectedBadge.className = 'absolute -top-2 -right-2 bg-[#dec7f4] text-slate-900 text-[9px] font-bold px-2 py-1 rounded-full uppercase font-mono shadow-xs';
+            selectedBadge.innerText = 'Selected';
+            cardEl.appendChild(selectedBadge);
+
+            selectedPackageName = pkgName;
+            selectedPackagePrice = price;
+            updateMixPayButton();
+            updateOxxoView();
+        }
+
+        function updateMixPayButton() {
+            if (!urlId) return;
+            const mixpayBtn = document.getElementById('mixpay-btn');
+            const mixpayLabel = document.getElementById('mixpay-btn-label');
+            const encodedId = encodeURIComponent(urlId);
+            
+            const mixpayUrl = `https://mixpay.me/MY_USERNAME?amount=${selectedPackagePrice}&remark=${encodedId}`;
+            mixpayBtn.href = mixpayUrl;
+            mixpayLabel.innerText = `Top Up ${selectedPackageName} ($${selectedPackagePrice.toFixed(2)})`;
+        }
+
+        function fetchOxxoData() {
+            // Use standard cache control instead of URL query parameters which break in blob/file environments
+            fetch('oxxo.csv', { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) throw new Error('OXXO data not found or blocked by browser');
+                    return response.text();
+                })
+                .then(csv => {
+                    processOxxoCsv(csv);
+                })
+                .catch(err => {
+                    console.warn('OXXO fetch error, showing unavailable state:', err);
+                    showOxxoUnavailable();
+                });
+        }
+
+        function processOxxoCsv(csv) {
+            // Split lines securely handling both \n and \r\n
+            const lines = csv.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+            // Skip if empty or only headers present
+            if (lines.length <= 1) {
+                showOxxoUnavailable();
+                return;
+            }
+            
+            let hasData = false;
+            for (let i = 1; i < lines.length; i++) {
+                const parts = lines[i].split(',').map(p => p.trim());
+                if (parts.length >= 4) {
+                    const gb = parts[0];
+                    // Structure: { '1GB': { duration: '7', mxn: '2.99', xfernum: '1234' } }
+                    oxxoData[gb + 'GB'] = {
+                        duration: parts[1],
+                        mxn: parts[2],
+                        xfernum: parts[3]
+                    };
+                    hasData = true;
+                }
+            }
+            
+            if (hasData) {
+                document.getElementById('oxxo-unavailable').classList.add('hidden');
+                document.getElementById('oxxo-content').classList.remove('hidden');
+                updateOxxoView();
+            } else {
+                showOxxoUnavailable();
+            }
+        }
+
+        function fetchBlacklist() {
+            fetch('blacklist.txt', { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) throw new Error('Blacklist file not found');
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split(/\r?\n/);
+                    lines.forEach(line => {
+                        const trimmed = line.trim();
+                        if (trimmed) blacklistedEsims.add(trimmed);
+                    });
+                })
+                .catch(err => {
+                    console.warn('Blacklist fetch skipped or error:', err);
+                });
+        }
+
+        function showOxxoUnavailable() {
+            document.getElementById('oxxo-unavailable').classList.remove('hidden');
+            document.getElementById('oxxo-content').classList.add('hidden');
+        }
+
+        function updateOxxoView() {
+            if (!Object.keys(oxxoData).length) return;
+            
+            const data = oxxoData[selectedPackageName];
+            const numEl = document.getElementById('oxxo-xfer-num');
+            const amountEl = document.getElementById('oxxo-amount');
+            const qrImg = document.getElementById('oxxo-qr-img');
+            const qrPlaceholder = document.getElementById('oxxo-qr-placeholder');
+            
+            if (data) {
+                numEl.innerText = data.xfernum;
+                amountEl.innerText = `$${data.mxn} MXN`;
+                
+                // Fetch dynamic QR code using public QR server API
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(data.xfernum)}&margin=0`;
+                qrImg.onload = () => {
+                    qrImg.classList.remove('hidden');
+                    qrPlaceholder.classList.add('hidden');
+                };
+            } else {
+                numEl.innerText = 'N/A';
+                amountEl.innerText = '-- MXN';
+                qrImg.classList.add('hidden');
+                qrPlaceholder.classList.remove('hidden');
+            }
+        }
+
+        function toggleEsimGuide() {
+            const modal = document.getElementById('esim-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function loadSampleId(sampleId) {
+            document.getElementById('manual-id-input').value = sampleId;
+            setEsimNumber(sampleId);
+        }
+
+        function loadManualId() {
+            const inputVal = document.getElementById('manual-id-input').value.trim();
+            if (inputVal) {
+                setEsimNumber(inputVal);
+            } else {
+                alertBox('Please enter a valid eSIM number');
+            }
+        }
+
+        function loadDemoMode(mode) {
+            hideLoading();
+            document.getElementById('error-state').classList.add('hidden');
+            document.getElementById('empty-state').classList.add('hidden');
+            
+            let demoId = mode === 'active' ? '89353082711108204603-DEMO' : '89353082711108204603-EXPIRED';
+            urlId = demoId;
+            
+            try {
+                const newUrl = `${window.location.pathname}?eid=${encodeURIComponent(urlId)}`;
+                window.history.pushState({path: newUrl}, '', newUrl);
+            } catch (e) {}
+
+            updateVisibility();
+
+            document.getElementById('manual-id-input').value = demoId;
+            document.getElementById('display-id').innerText = demoId;
+            document.getElementById('selected-profile-tag').innerText = demoId;
+            
+            if (!blacklistedEsims.has(urlId)) {
+                document.getElementById('topup-card').classList.remove('hidden');
+            } else {
+                document.getElementById('topup-card').classList.add('hidden');
+            }
+
+            const now = new Date();
+            let mockHtml = '';
+
+            if (mode === 'active') {
+                const startDate = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+                const endDate = new Date(now.getTime() + 12 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC (Active)';
+                
+                mockHtml = `
+                    <a class="underline">Plan Link 1</a>
+                    <a class="underline">5GB LTE Ultra Data Package - Nationwide</a>
+                    <ul>
+                        <li>Start: ${startDate}</li>
+                        <li>End: ${endDate}</li>
+                        <li>Data Usage: 1240.50 MB of 5000.00 MB</li>
+                    </ul>
+                `;
+            } else {
+                const startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+                const endDate = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19) + ' UTC (Expired)';
+                
+                mockHtml = `
+                    <a class="underline">Plan Link 1</a>
+                    <a class="underline">3GB LTE Starter Package - Expired</a>
+                    <ul>
+                        <li>Start: ${startDate}</li>
+                        <li>End: ${endDate}</li>
+                        <li>Data Usage: 3000.00 MB of 3000.00 MB</li>
+                    </ul>
+                `;
+            }
+
+            parseAndDisplayContent(mockHtml);
+            updateMixPayButton();
+            alertBox(`Loaded ${mode.toUpperCase()} Demo eSIM`);
+        }
+
+        function setEsimNumber(newId) {
+            urlId = newId ? newId.trim() : '';
+            if (!urlId) {
+                document.getElementById('topup-card').classList.add('hidden');
+                updateVisibility();
+                return;
+            }
+
+            document.getElementById('manual-id-input').value = urlId;
+            document.getElementById('selected-profile-tag').innerText = urlId;
+
+            try {
+                const newUrl = `${window.location.pathname}?eid=${encodeURIComponent(urlId)}`;
+                window.history.pushState({path: newUrl}, '', newUrl);
+            } catch (e) {}
+            
+            updateVisibility();
+
+            document.title = `Datos Libres - eSIM: ${urlId}`;
+            document.getElementById('display-id').innerText = urlId;
+
+            const statusSubtext = document.getElementById('profile-status-subtext');
+            statusSubtext.innerText = 'Select a package below to perform instant top-up';
+            statusSubtext.className = 'text-xs text-slate-500 mt-1 font-medium';
+
+            updateMixPayButton();
+            fetchData();
+        }
+
+        function copyCurrentUrl() {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alertBox('eSIM URL copied to clipboard!');
+        }
+
+        function alertBox(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 bg-slate-900 text-white text-sm px-6 py-3 rounded-full shadow-2xl z-50 transition-all opacity-0 font-bold border border-slate-700';
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('opacity-100'), 10);
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-state').classList.add('hidden');
+        }
+
+        function fetchData() {
+            if (!urlId) {
+                document.getElementById('topup-card').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('loading-state').classList.remove('hidden');
+            document.getElementById('error-state').classList.add('hidden');
+            document.getElementById('items-container').classList.add('hidden');
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('topup-card').classList.add('hidden');
+
+            const requestUrl = `${ENDPOINT_URL}?id=${encodeURIComponent(urlId)}`;
+
+            fetch(requestUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Network response error (Status: ${response.status})`);
+                    return response.text();
+                })
+                .then(htmlString => {
+                    hideLoading();
+                    parseAndDisplayContent(htmlString);
+                })
+                .catch(err => {
+                    hideLoading();
+                    document.getElementById('error-state').classList.remove('hidden');
+                    document.getElementById('error-title').innerText = 'Connection Error';
+                    document.getElementById('error-desc').innerText = err.message || 'Could not fetch eSIM details.';
+                    document.getElementById('esim-lookup-card').classList.remove('hidden');
+                });
+        }
+
+        function parseAndDisplayContent(htmlString) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+            
+            const allUnderlineLinks = doc.querySelectorAll('a.underline');
+            const secondUnderlineContainer = document.getElementById('second-underline-container');
+            const secondUnderlineText = document.getElementById('second-underline-text');
+
+            if (allUnderlineLinks.length >= 2) {
+                const secondLinkText = allUnderlineLinks[1].textContent.trim();
+                if (secondLinkText) {
+                    secondUnderlineText.innerText = secondLinkText;
+                    secondUnderlineContainer.classList.remove('hidden');
+                } else {
+                    secondUnderlineContainer.classList.add('hidden');
+                }
+            } else {
+                secondUnderlineContainer.classList.add('hidden');
+            }
+
+            const liElements = doc.querySelectorAll('li');
+            const container = document.getElementById('items-container');
+            container.innerHTML = '';
+
+            const countBadge = document.getElementById('item-count-badge');
+            const statusBadge = document.getElementById('profile-status-badge');
+            const statusSubtext = document.getElementById('profile-status-subtext');
+
+            if (liElements.length === 0 || !urlId) {
+                document.getElementById('topup-card').classList.add('hidden');
+                secondUnderlineContainer.classList.add('hidden');
+                
+                statusSubtext.innerText = 'eSIM number not found';
+                statusSubtext.className = 'text-xs font-bold text-rose-600 mt-1';
+
+                statusBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-rose-100 text-rose-800 font-bold font-mono';
+                statusBadge.innerText = 'Not Found';
+
+                countBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 font-bold font-mono';
+                countBadge.innerText = '0 items';
+
+                document.getElementById('empty-state-title').innerText = `eSIM number "${urlId || ''}" wasn't found`;
+                document.getElementById('empty-state-desc').innerText = `No usage details or account records were found for eSIM number ${urlId || ''}. Please check the eSIM number or search a new one.`;
+                document.getElementById('empty-state').classList.remove('hidden');
+                
+                document.getElementById('esim-lookup-card').classList.remove('hidden');
+            } else {
+                if (urlId && urlId.trim() !== '') {
+                    if (!blacklistedEsims.has(urlId)) {
+                        document.getElementById('topup-card').classList.remove('hidden');
+                        updateMixPayButton();
+                    } else {
+                        document.getElementById('topup-card').classList.add('hidden');
+                    }
+                }
+
+                let startDate = null;
+                let endDate = null;
+                let currentVal = 0;
+                let maxVal = 0;
+                let hasDataInfo = false;
+
+                liElements.forEach((li, idx) => {
+                    const text = li.textContent.trim();
+                    if (text.toLowerCase().includes('start:') || (idx === 0 && text.includes('UTC'))) {
+                        const datePart = text.replace(/^Start:\s*/i, '').replace('UTC', '').trim();
+                        const normalized = datePart.replace(' ', 'T') + 'Z';
+                        const d = new Date(normalized);
+                        if (!isNaN(d.getTime())) startDate = d;
+                    }
+                    if (text.toLowerCase().includes('end:') || (idx === 1 && text.includes('UTC'))) {
+                        let cleanText = text.replace(/^End:\s*/i, '');
+                        const parenIdx = cleanText.indexOf('(');
+                        if (parenIdx !== -1) cleanText = cleanText.substring(0, parenIdx).trim();
+                        cleanText = cleanText.replace('UTC', '').trim();
+                        const normalized = cleanText.replace(' ', 'T') + 'Z';
+                        const d = new Date(normalized);
+                        if (!isNaN(d.getTime())) endDate = d;
+                    }
+                    if (text.toLowerCase().includes('data usage:') || (idx === 2 && text.includes('MB'))) {
+                        const cleanText = text.replace(/^Data Usage:\s*/i, '');
+                        const match = cleanText.match(/([\d.]+)\s*MB\s+of\s+([\d.]+)\s*MB/i);
+                        if (match) {
+                            currentVal = parseFloat(match[1]);
+                            maxVal = parseFloat(match[2]);
+                            hasDataInfo = true;
+                        }
+                    }
+                });
+
+                const now = new Date();
+                let isActive = true;
+
+                if (endDate && now > endDate) isActive = false;
+                if (startDate && now < startDate) isActive = false;
+                if (hasDataInfo && maxVal > 0 && currentVal >= maxVal) isActive = false;
+
+                if (isActive) {
+                    statusBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-200 font-mono';
+                    statusBadge.innerText = 'Active Plan';
+
+                    countBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-200/80 font-mono';
+                    countBadge.innerText = 'Active';
+                } else {
+                    statusBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-200 font-mono';
+                    statusBadge.innerText = 'Expired / Depleted';
+
+                    countBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-200/80 font-mono';
+                    countBadge.innerText = 'Expired';
+
+                    secondUnderlineContainer.classList.add('hidden');
+                }
+
+                statusSubtext.innerText = 'Select a package below to add high-speed mobile data to this eSIM';
+                statusSubtext.className = 'text-xs text-slate-500 mt-1 font-medium';
+
+                liElements.forEach((li, index) => {
+                    const rawText = li.textContent.trim();
+                    
+                    const card = document.createElement('div');
+                    card.className = 'px-6 py-5 hover:bg-slate-50/80 transition flex items-start space-x-4';
+
+                    const iconBox = document.createElement('div');
+                    iconBox.className = isActive
+                        ? 'w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 font-bold text-sm flex items-center justify-center shrink-0 mt-0.5 border border-emerald-100 font-mono'
+                        : 'w-8 h-8 rounded-full bg-rose-50 text-rose-600 font-bold text-sm flex items-center justify-center shrink-0 mt-0.5 border border-rose-100 font-mono';
+                    iconBox.innerText = index + 1;
+
+                    const contentBox = document.createElement('div');
+                    contentBox.className = 'flex-grow min-w-0';
+
+                    function formatUtcToLocal(utcStr) {
+                        try {
+                            const normalized = utcStr.replace(' ', 'T') + 'Z';
+                            const date = new Date(normalized);
+                            if (!isNaN(date.getTime())) {
+                                return date.toLocaleString(undefined, {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+                            }
+                        } catch (e) {}
+                        return utcStr;
+                    }
+
+                    if (index === 0 && (rawText.toLowerCase().includes('start:') || rawText.includes('UTC'))) {
+                        const datePart = rawText.replace(/^Start:\s*/i, '').replace('UTC', '').trim();
+                        const localFormatted = formatUtcToLocal(datePart);
+
+                        const labelSpan = document.createElement('span');
+                        labelSpan.className = 'block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono';
+                        labelSpan.innerText = 'Start Time (Local)';
+
+                        const valueP = document.createElement('p');
+                        valueP.className = 'text-base font-bold text-slate-900';
+                        valueP.innerText = localFormatted;
+
+                        contentBox.appendChild(labelSpan);
+                        contentBox.appendChild(valueP);
+
+                    } else if (index === 1 && (rawText.toLowerCase().includes('end:') || rawText.includes('UTC'))) {
+                        let cleanText = rawText.replace(/^End:\s*/i, '');
+                        let extraInfo = '';
+                        const parenIdx = cleanText.indexOf('(');
+                        if (parenIdx !== -1) {
+                            extraInfo = cleanText.substring(parenIdx);
+                            cleanText = cleanText.substring(0, parenIdx).trim();
+                        }
+                        cleanText = cleanText.replace('UTC', '').trim();
+                        const localFormatted = formatUtcToLocal(cleanText);
+
+                        const labelSpan = document.createElement('span');
+                        labelSpan.className = 'block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 font-mono';
+                        labelSpan.innerText = 'Expiration Time (Local)';
+
+                        const valueContainer = document.createElement('div');
+                        valueContainer.className = 'flex flex-wrap items-center gap-2';
+
+                        const valueP = document.createElement('p');
+                        valueP.className = 'text-base font-bold text-slate-900';
+                        valueP.innerText = localFormatted;
+
+                        valueContainer.appendChild(valueP);
+
+                        if (extraInfo) {
+                            const badge = document.createElement('span');
+                            badge.className = isActive
+                                ? 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono'
+                                : 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200/60 font-mono';
+                            badge.innerText = extraInfo.replace(/[()]/g, '');
+                            valueContainer.appendChild(badge);
+                        }
+
+                        contentBox.appendChild(labelSpan);
+                        contentBox.appendChild(valueContainer);
+
+                    } else if (index === 2 && (rawText.toLowerCase().includes('data usage:') || rawText.includes('MB'))) {
+                        const cleanText = rawText.replace(/^Data Usage:\s*/i, '');
+                        
+                        let itemCurrent = 0;
+                        let itemMax = 3000;
+                        const match = cleanText.match(/([\d.]+)\s*MB\s+of\s+([\d.]+)\s*MB/i);
+                        if (match) {
+                            itemCurrent = parseFloat(match[1]);
+                            itemMax = parseFloat(match[2]);
+                        }
+
+                        const percentage = itemMax > 0 ? Math.min(Math.max((itemCurrent / itemMax) * 100, 0), 100) : 0;
+                        const remainingMb = Math.max(itemMax - itemCurrent, 0);
+
+                        const labelSpan = document.createElement('span');
+                        labelSpan.className = 'block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 font-mono';
+                        labelSpan.innerText = 'Data Usage & Capacity';
+
+                        const detailsRow = document.createElement('div');
+                        detailsRow.className = 'flex items-center justify-between text-sm mb-2';
+                        
+                        const usageText = document.createElement('span');
+                        usageText.className = 'font-bold text-slate-800';
+                        const accentColorClass = isActive ? 'text-[#b7b5f5]' : 'text-rose-500';
+                        usageText.innerHTML = `<span class="${accentColorClass}">${itemCurrent.toFixed(2)} MB</span> <span class="text-slate-500 font-medium text-xs uppercase tracking-wider mx-1">used of</span> ${itemMax.toFixed(2)} MB <span class="text-slate-400 font-mono text-xs ml-1">(${remainingMb.toFixed(2)} MB left)</span>`;
+
+                        const percentText = document.createElement('span');
+                        percentText.className = `text-sm font-bold font-mono ${isActive ? 'text-[#5fd0c0]' : 'text-rose-700'}`;
+                        percentText.innerText = `${percentage.toFixed(1)}%`;
+
+                        detailsRow.appendChild(usageText);
+                        detailsRow.appendChild(percentText);
+
+                        const progressTrack = document.createElement('div');
+                        progressTrack.className = 'w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200/50 p-0.5 shadow-inner';
+
+                        const progressBar = document.createElement('div');
+                        progressBar.className = `${isActive ? 'bg-gradient-to-r from-[#b7b5f5] to-[#5fd0c0]' : 'bg-gradient-to-r from-rose-400 to-rose-500'} h-full rounded-full transition-all duration-1000 ease-out`;
+                        progressBar.style.width = `${percentage}%`;
+
+                        progressTrack.appendChild(progressBar);
+
+                        contentBox.appendChild(labelSpan);
+                        contentBox.appendChild(detailsRow);
+                        contentBox.appendChild(progressTrack);
+
+                    } else {
+                        const textParagraph = document.createElement('p');
+                        textParagraph.className = 'text-sm text-slate-700 font-medium leading-relaxed break-words';
+                        textParagraph.innerText = rawText;
+                        contentBox.appendChild(textParagraph);
+                    }
+
+                    card.appendChild(iconBox);
+                    card.appendChild(contentBox);
+                    container.appendChild(card);
+                });
+                container.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
