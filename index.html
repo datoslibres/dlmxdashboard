@@ -49,7 +49,7 @@
         /* Custom flashy button style mimicking Button.svg */
         .btn-flashy {
             background: linear-gradient(#27272a, #27272a) padding-box,
-                        linear-gradient(to right, #b7b5f5, #5fd0c0) border-box;
+                        linear-gradient(to right, #dec7f4, #9cdbd7) border-box;
             border: 2px solid transparent;
             border-radius: 9999px;
             color: #f8fafc;
@@ -60,7 +60,7 @@
         }
         
         .btn-flashy:hover {
-            box-shadow: 0 10px 25px -5px rgba(95, 208, 192, 0.4), 0 8px 10px -6px rgba(183, 181, 245, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(156, 219, 215, 0.4), 0 8px 10px -6px rgba(222, 199, 244, 0.4);
             transform: translateY(-2px);
             color: #ffffff;
         }
@@ -85,9 +85,18 @@
         #oxxo-dropdown-menu::-webkit-scrollbar-thumb:hover {
             background: #94a3b8; 
         }
+
+        /* Hide scrollbar for inline one-line displays */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
-<body class="h-full bg-slate-50 text-slate-800 font-sans font-light antialiased flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+<body class="h-full bg-slate-50 text-slate-800 font-sans font-light antialiased flex flex-col justify-between selection:bg-[#aca9f7] selection:text-slate-900">
 
     <!-- 4G & 5G Network Support Top Banner -->
     <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-2 px-4 border-b border-indigo-900/50 shadow-xs">
@@ -96,7 +105,7 @@
                 <div class="flex items-center space-x-1">
                     <span class="inline-flex items-center px-2 py-0.5 rounded bg-indigo-500/25 text-indigo-300 font-bold text-[10px] border border-indigo-400/30 tracking-wider font-mono">4G LTE</span>
                     <span class="text-indigo-400 font-bold">+</span>
-                    <span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-500/25 text-emerald-300 font-bold text-[10px] border border-emerald-400/40 tracking-wider font-mono">5G ULTRA</span>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded bg-[#9cdbd7]/20 text-[#9cdbd7] font-bold text-[10px] border border-[#9cdbd7]/40 tracking-wider font-mono">5G ULTRA</span>
                 </div>
                 <span class="h-3 w-px bg-slate-700 hidden sm:inline-block"></span>
                 <span class="font-medium text-slate-200 hidden sm:inline-block tracking-tight">
@@ -115,13 +124,13 @@
                         <img src="LogoBold.svg" alt="Datos Libres" class="w-[180px] sm:w-[260px] object-contain" id="header-title" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span style="display:none;" class="text-xl sm:text-2xl font-black tracking-tight text-slate-900">Datos Libres</span>
                     </a>
-                    <p class="text-[14px] sm:text-[19px] font-bold tracking-wide mt-1 sm:mt-1.5 text-transparent bg-clip-text bg-gradient-to-r from-[#d3bdf8] via-[#a3d0ed] to-[#5fd0c0] leading-none" id="header-subtitle">eSIM y Datos para celular</p>
+                    <p class="text-[14px] sm:text-[19px] font-bold tracking-wide mt-1 sm:mt-1.5 text-transparent bg-clip-text bg-gradient-to-r from-[#dec7f4] via-[#9cdbd7] to-[#f2ddc7] leading-none" id="header-subtitle">eSIM y Datos para celular</p>
                 </div>
             </div>
             
             <div class="flex items-center space-x-2">
                 <button onclick="toggleEsimGuide()" class="btn-flashy h-11 inline-flex items-center px-4 text-xs font-bold cursor-pointer">
-                    <svg class="w-4 h-4 mr-2 text-[#5fd0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    <svg class="w-4 h-4 mr-2 text-[#9cdbd7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     eSIM Guide
                 </button>
             </div>
@@ -133,7 +142,7 @@
         <!-- Separated eSIM Lookup Box -->
         <div id="esim-lookup-card" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs">
+                <div class="w-10 h-10 rounded-xl bg-[#dec7f4]/20 border border-[#dec7f4] text-[#4f46e5] flex items-center justify-center shrink-0 shadow-2xs">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <rect x="5" y="4" width="14" height="16" rx="2" stroke-width="2"></rect>
                         <path d="M9 8h6M9 12h6M9 16h4" stroke-width="2" stroke-linecap="round"></path>
@@ -148,7 +157,7 @@
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                 <div class="flex w-full sm:w-auto items-center gap-2">
-                    <input type="text" id="manual-id-input" placeholder="Enter eSIM number..." class="w-full sm:w-64 h-11 px-4 text-sm bg-slate-50 border border-slate-200 rounded-full focus:ring-2 focus:ring-[#5fd0c0] focus:border-[#5fd0c0] focus:bg-white focus:outline-none text-slate-800 font-mono transition-all" onkeydown="if(event.key==='Enter') loadManualId()">
+                    <input type="text" id="manual-id-input" placeholder="Enter eSIM number..." class="w-full sm:w-64 h-11 px-4 text-sm bg-slate-50 border border-slate-200 rounded-full focus:ring-2 focus:ring-[#9cdbd7] focus:border-[#9cdbd7] focus:bg-white focus:outline-none text-slate-800 font-mono transition-all" onkeydown="if(event.key==='Enter') loadManualId()">
                     <button onclick="loadManualId()" class="btn-flashy h-11 px-5 text-xs font-bold cursor-pointer shrink-0 inline-flex items-center justify-center">
                         Load eSIM
                     </button>
@@ -165,16 +174,16 @@
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
                     <div class="space-y-1 w-full flex-grow min-w-0">
                         <div class="flex items-center justify-between sm:justify-start space-x-2">
-                            <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-600 text-white shadow-2xs font-mono">
+                            <span class="inline-flex items-center space-x-1.5 px-2.5 h-6 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#4f46e5] text-white shadow-2xs font-mono">
                                 <span>eSIM TOP UP</span>
                                 <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path></svg>
                             </span>
-                            <span id="profile-status-badge" class="px-2.5 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 font-semibold font-mono">
+                            <span id="profile-status-badge" class="inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-slate-200 text-slate-700 font-bold font-mono tracking-wider">
                                 Checking Status
                             </span>
                         </div>
                         <div class="flex items-center justify-between sm:justify-start gap-x-3 gap-y-1 pt-1.5 min-w-0 w-full">
-                            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-sans truncate min-w-0" id="display-id">Loading eSIM...</h2>
+                            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight font-sans whitespace-nowrap overflow-x-auto no-scrollbar pb-1" id="display-id">Loading eSIM...</h2>
                             
                             <button onclick="copyCurrentUrl()" title="Copy Direct eSIM Link" class="text-slate-400 hover:text-indigo-600 w-11 h-11 flex items-center justify-center rounded-xl hover:bg-slate-100 transition cursor-pointer shrink-0">
                                 <svg class="w-6 h-6" viewBox="0 0 16 16" fill="currentColor">
@@ -191,18 +200,18 @@
                     <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-100 pb-2.5">
                         <div>
                             <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <span>Select Top-Up Data Package</span>
+                                <span>Select Data Package</span>
                             </h3>
-                            <p class="text-xs text-slate-500 mt-1">Choose the mobile data amount to load onto eSIM <span id="selected-profile-tag" class="font-mono text-indigo-600 font-semibold">--</span>.</p>
+                            <p class="text-xs text-slate-500 mt-1">Choose the mobile data amount to load onto eSIM <span id="selected-profile-tag" class="font-mono text-[#4f46e5] font-semibold">--</span>.</p>
                         </div>
                         <div class="flex flex-col sm:items-end shrink-0 mt-2 sm:mt-0">
-                            <span class="bg-amber-100 text-amber-900 font-bold px-2 py-1 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">PRICES IN USD</span>
+                            <span class="bg-[#efce84]/30 text-[#774f08] font-bold px-2 py-1 rounded-md border border-[#efce84]/80 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">PRICES IN USD</span>
                         </div>
                     </div>
 
-                    <div id="crypto-unavailable" class="hidden flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-xl shadow-xs">
-                        <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        <p class="text-sm font-bold text-red-700">Crypto payments are currently unavailable. Please check back later or use OXXO.</p>
+                    <div id="crypto-unavailable" class="hidden flex items-center gap-3 p-4 bg-[#f2ddc7]/30 border border-[#efce84] rounded-xl shadow-xs">
+                        <svg class="w-5 h-5 text-[#774f08] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <p class="text-sm font-bold text-[#774f08]">Crypto payments are currently unavailable. Please check back later or use OXXO.</p>
                     </div>
 
                     <!-- Package Cards Grid -->
@@ -216,11 +225,11 @@
                     <div class="flex flex-col items-center sm:items-start space-y-2.5 w-full sm:w-auto">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Pay with crypto</span>
                         <div class="flex items-center space-x-3 text-slate-400">
-                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
-                            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
-                            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="Tether" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
-                            <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" alt="USDC" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
-                            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana" class="w-6 h-6 hover:scale-110 transition-transform object-contain cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/black/btc.png" alt="Bitcoin" class="w-6 h-6 opacity-60 hover:opacity-100 hover:scale-110 transition-all object-contain cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/black/eth.png" alt="Ethereum" class="w-6 h-6 opacity-60 hover:opacity-100 hover:scale-110 transition-all object-contain cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/black/usdt.png" alt="Tether" class="w-6 h-6 opacity-60 hover:opacity-100 hover:scale-110 transition-all object-contain cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/black/usdc.png" alt="USDC" class="w-6 h-6 opacity-60 hover:opacity-100 hover:scale-110 transition-all object-contain cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/black/sol.png" alt="Solana" class="w-6 h-6 opacity-60 hover:opacity-100 hover:scale-110 transition-all object-contain cursor-pointer">
                         </div>
                     </div>
 
@@ -235,13 +244,13 @@
             </div>
 
             <!-- Card 2: Prominent Warning Notice -->
-            <div class="text-sm text-amber-950 flex items-start gap-3.5 w-full bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-2xl border-2 border-amber-300/80 shadow-md font-medium">
-                <div class="w-8 h-8 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+            <div class="text-sm text-amber-950 flex items-start gap-3.5 w-full bg-[#f2ddc7]/30 p-5 rounded-2xl border-2 border-[#efce84] shadow-md font-medium">
+                <div class="w-8 h-8 rounded-xl bg-[#efce84] text-[#774f08] flex items-center justify-center shrink-0 shadow-xs mt-0.5">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </div>
                 <div class="leading-relaxed">
-                    <strong class="block font-bold text-amber-950 mb-1 text-base">Important Activation Notice:</strong>
-                    Allow for up to 12 hours for activation of plan after payment confirmation. We process each request manually to ensure anonymity. Please contact us on <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="font-bold underline decoration-amber-950/30 hover:decoration-amber-950 text-amber-900 hover:text-amber-700 transition">@datoslibresmx</a>.
+                    <strong class="block font-bold text-[#774f08] mb-1 text-base">Important Activation Notice:</strong>
+                    Allow for up to 24 hours for activation of plan after payment confirmation. We process each request manually to ensure anonymity. Please contact us on <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="font-bold underline decoration-[#774f08]/30 hover:decoration-[#774f08] text-[#774f08] hover:text-amber-900 transition">@datoslibresmx</a>.
                 </div>
             </div>
 
@@ -253,14 +262,14 @@
                         <span>Pay with Cash at OXXO</span>
                     </h3>
                     <div class="flex flex-col sm:items-end">
-                        <span class="bg-amber-100 text-amber-900 font-bold px-2 py-1 rounded-md border border-amber-200/60 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">Prices in MXN</span>
+                        <span class="bg-[#efce84]/30 text-[#774f08] font-bold px-2 py-1 rounded-md border border-[#efce84]/80 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">Prices in MXN</span>
                         <span class="text-[10px] text-slate-400 font-medium mt-1 text-left sm:text-right max-w-[170px] leading-tight">Subject to frequent change based on market value</span>
                     </div>
                 </div>
 
-                <div id="oxxo-unavailable" class="hidden flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-xl shadow-xs">
-                    <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                    <p class="text-sm font-bold text-red-700">OXXO deposits are currently unavailable. Please check back later or use Crypto.</p>
+                <div id="oxxo-unavailable" class="hidden flex items-center gap-3 p-4 bg-[#f2ddc7]/30 border border-[#efce84] rounded-xl shadow-xs">
+                    <svg class="w-5 h-5 text-[#774f08] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <p class="text-sm font-bold text-[#774f08]">OXXO deposits are currently unavailable. Please check back later or use Crypto.</p>
                 </div>
 
                 <div id="oxxo-content" class="hidden flex flex-col gap-6">
@@ -268,7 +277,7 @@
                     <!-- Custom prominent Dropdown Menu for OXXO -->
                     <div id="oxxo-custom-select-container" class="relative w-full max-w-lg mx-auto">
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 font-mono text-center">Select Data Package</label>
-                        <button id="oxxo-dropdown-btn" onclick="toggleOxxoDropdown(event)" class="w-full flex items-center justify-between bg-slate-50 border-2 border-slate-200 p-4 rounded-xl shadow-sm focus:border-red-400 focus:outline-none hover:bg-white hover:border-red-300 transition-all text-left">
+                        <button id="oxxo-dropdown-btn" onclick="toggleOxxoDropdown(event)" class="w-full flex items-center justify-between bg-slate-50 border-2 border-slate-200 p-4 rounded-xl shadow-sm focus:border-[#9cdbd7] focus:outline-none hover:bg-white hover:border-[#9cdbd7] transition-all text-left">
                             <span id="oxxo-dropdown-label" class="text-slate-800 text-base flex-grow">Select a package...</span>
                             <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
@@ -298,12 +307,12 @@
                             </div>
                             <div class="flex gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 items-start">
                                 <span class="w-7 h-7 rounded-full bg-white text-slate-900 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-slate-200 text-sm mt-0.5">4</span>
-                                <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline transition">@datoslibresmx</a>.</span>
+                                <span class="text-sm font-medium text-slate-700">Send receipt of deposit to <a href="https://x.com/datoslibresmx" target="_blank" rel="noopener noreferrer" class="text-[#4f46e5] font-bold hover:underline transition">@datoslibresmx</a>.</span>
                             </div>
                         </div>
 
                         <!-- Dynamic QR and Number Display (Right) -->
-                        <div class="order-1 md:order-2 flex flex-col items-center justify-center bg-white p-6 rounded-2xl border-2 border-dashed border-slate-300 text-center relative overflow-hidden transition-all hover:border-red-300">
+                        <div class="order-1 md:order-2 flex flex-col items-center justify-center bg-white p-6 rounded-2xl border-2 border-dashed border-slate-300 text-center relative overflow-hidden transition-all hover:border-[#9cdbd7]">
                             <div class="w-full bg-slate-50 py-1.5 absolute top-0 left-0 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono">Transfer Details</div>
                             
                             <div class="w-40 h-40 mt-8 mb-5 bg-white p-2.5 border border-slate-100 rounded-xl shadow-sm relative flex items-center justify-center">
@@ -318,7 +327,7 @@
                             <div class="text-sm font-medium text-slate-500 flex items-center justify-center gap-3 mt-1">
                                 <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
                                 <span class="text-slate-300">|</span>
-                                <span>Amt: <span id="oxxo-amount" class="font-bold text-red-600 text-base">-- MXN</span></span>
+                                <span>Amt: <span id="oxxo-amount" class="font-bold text-[#065f46] text-base">-- MXN</span></span>
                             </div>
                         </div>
                     </div>
@@ -328,12 +337,12 @@
         </div>
 
         <!-- Active Plan Banner -->
-        <div id="second-underline-container" class="hidden bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-5 shadow-xs flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+        <div id="second-underline-container" class="hidden bg-gradient-to-r from-[#dec7f4]/20 to-[#9cdbd7]/20 border border-[#dec7f4] rounded-2xl p-5 shadow-xs flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-[#4f46e5] text-white flex items-center justify-center shrink-0 shadow-xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
             <div>
-                <span class="block text-[11px] font-bold text-indigo-500 uppercase tracking-wider font-mono">Active Plan</span>
+                <span class="block text-[11px] font-bold text-[#4f46e5] uppercase tracking-wider font-mono">Active Plan</span>
                 <p class="text-sm font-bold text-slate-900" id="second-underline-text">Loading plan details...</p>
             </div>
         </div>
@@ -343,9 +352,9 @@
             <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                 <div class="flex items-center space-x-3">
                     <h3 class="font-bold text-slate-900 text-sm">eSIM Status & Usage Feed</h3>
-                    <span id="item-count-badge" class="px-2.5 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 font-semibold font-mono">0 items</span>
+                    <span id="item-count-badge" class="inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-slate-200 text-slate-700 font-bold font-mono tracking-wider">0 items</span>
                 </div>
-                <button onclick="fetchData()" class="inline-flex items-center justify-center text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition cursor-pointer bg-indigo-50 h-9 px-3 rounded-full hover:bg-indigo-100">
+                <button onclick="fetchData()" class="inline-flex items-center justify-center text-xs font-semibold text-[#4f46e5] hover:text-[#4338ca] transition cursor-pointer bg-[#dec7f4]/20 h-9 px-3 rounded-full hover:bg-[#dec7f4]/40 border border-[#dec7f4]/50">
                     <svg id="refresh-icon" class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                     Refresh Data
                 </button>
@@ -353,14 +362,14 @@
 
             <!-- Loading State -->
             <div id="loading-state" class="p-12 text-center">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-[#5fd0c0] border-t-transparent mb-4"></div>
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-[#9cdbd7] border-t-transparent mb-4"></div>
                 <p class="text-sm font-bold text-slate-700">Fetching eSIM details...</p>
                 <p class="text-xs text-slate-400 mt-1 font-mono">Retrieving status from network server</p>
             </div>
 
             <!-- Error State -->
             <div id="error-state" class="hidden p-8 text-center">
-                <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-12 h-12 bg-[#f2ddc7]/30 text-[#774f08] border border-[#efce84]/50 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h4 class="text-base font-bold text-slate-900 mb-1" id="error-title">Failed to load data</h4>
@@ -377,7 +386,7 @@
 
             <!-- Empty Data State / eSIM Not Found -->
             <div id="empty-state" class="hidden p-8 sm:p-12 text-center">
-                <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-14 h-14 bg-amber-100 text-[#774f08] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#efce84]">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </div>
                 <h4 class="text-lg font-bold text-slate-900 mb-2" id="empty-state-title">eSIM number wasn't found</h4>
@@ -388,32 +397,32 @@
         <!-- Note Box Above Footer -->
         <div class="bg-slate-100/80 border border-slate-200/80 rounded-2xl p-4 text-center shadow-2xs">
             <p class="text-xs font-medium text-slate-600 flex items-start sm:items-center justify-center gap-2 text-left sm:text-center">
-                <svg class="w-4 h-4 text-[#b7b5f5] shrink-0 mt-0.5 sm:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg class="w-4 h-4 text-[#aca9f7] shrink-0 mt-0.5 sm:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <span><strong>Note:</strong> Any future top up plans will automatically stack and begin after the current active plan ends. Future plans are not shown here.</span>
             </p>
         </div>
     </main>
 
     <!-- Expanded eSIM Installation Modal -->
-    <div id="esim-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <!-- Made wider for two column layout -->
-        <div class="bg-white rounded-3xl max-w-4xl w-full p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200 max-h-[95vh] overflow-y-auto">
-            <button onclick="toggleEsimGuide()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition z-10 w-11 h-11 flex items-center justify-center">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div id="esim-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-start justify-center overflow-y-auto" onclick="if(event.target === this) toggleEsimGuide()">
+        <!-- Inner Modal wrapper with margin so the background can be clicked -->
+        <div class="bg-white rounded-3xl max-w-4xl w-full m-4 sm:my-8 p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200">
+            <button onclick="toggleEsimGuide()" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition z-10 w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
-            <div class="flex items-center space-x-4 mb-6 border-b border-slate-100 pb-5">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#b7b5f5] to-[#5fd0c0] text-slate-900 flex items-center justify-center shadow-md shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <div class="flex items-center space-x-4 mb-6 border-b border-slate-100 pb-5 pr-10 sm:pr-0">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#dec7f4] to-[#9cdbd7] text-slate-900 flex items-center justify-center shadow-md shrink-0">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-slate-900 tracking-tight">eSIM Setup & Installation</h3>
-                    <p class="text-sm text-slate-500 mt-0.5">Quick steps to activate your mobile profile for eSIM <span id="guide-esim-display" class="font-mono font-bold text-indigo-600">--</span></p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-tight">eSIM Setup & Installation</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Quick steps to activate your mobile profile for eSIM <span id="guide-esim-display" class="font-mono font-bold text-[#4f46e5]">--</span></p>
                 </div>
             </div>
 
             <!-- Main Layout Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm text-slate-600">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 text-sm text-slate-600">
                 
                 <!-- Left Column: Instructions -->
                 <div class="space-y-4">
@@ -436,7 +445,7 @@
                         <div class="pt-0.5 w-full">
                             <strong class="text-slate-900 block mb-1.5 text-base">Android (Samsung/Pixel):</strong>
                             <p class="leading-relaxed">Go to <span class="font-semibold text-slate-800">Settings &gt; Connections &gt; SIM Manager &gt; Add eSIM</span> &gt; Scan QR code.</p>
-                            <a id="btn-quick-install-android" href="#" class="mt-3 hidden inline-flex items-center justify-center px-4 h-11 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-sm w-full sm:w-auto">
+                            <a id="btn-quick-install-android" href="#" class="mt-3 hidden inline-flex items-center justify-center px-4 h-11 bg-[#065f46] hover:bg-[#065f46]/90 text-white rounded-xl text-xs font-bold transition shadow-sm w-full sm:w-auto">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M2.76 3.061a.5.5 0 0 1 .679.2l1.283 2.352A8.9 8.9 0 0 1 8 5a8.9 8.9 0 0 1 3.278.613l1.283-2.352a.5.5 0 1 1 .878.478l-1.252 2.295C14.475 7.266 16 9.477 16 12H0c0-2.523 1.525-4.734 3.813-5.966L2.56 3.74a.5.5 0 0 1 .2-.678ZM5 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                 </svg>
@@ -445,22 +454,22 @@
                         </div>
                     </div>
                     
-                    <div class="flex gap-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 shadow-sm relative overflow-hidden">
+                    <div class="flex gap-4 p-4 rounded-2xl bg-[#9cdbd7]/10 border border-[#9cdbd7]/50 shadow-sm relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-2 opacity-10">
-                            <svg class="w-24 h-24 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+                            <svg class="w-24 h-24 text-[#065f46]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
                         </div>
-                        <span class="w-8 h-8 rounded-full bg-white text-emerald-700 font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-emerald-200 text-sm mt-0.5 z-10">3</span>
+                        <span class="w-8 h-8 rounded-full bg-white text-[#065f46] font-bold flex items-center justify-center shrink-0 font-mono shadow-sm border border-[#9cdbd7] text-sm mt-0.5 z-10">3</span>
                         <div class="pt-0.5 z-10 w-full">
-                            <strong class="text-emerald-950 block mb-1.5 text-base">Enable Data Roaming:</strong>
-                            <p class="leading-relaxed text-emerald-900 mb-3">Ensure <strong>Data Roaming</strong> is turned <strong class="text-emerald-700 uppercase tracking-wide">ON</strong> for the newly added eSIM profile after installation.</p>
+                            <strong class="text-[#065f46] block mb-1.5 text-base">Enable Data Roaming:</strong>
+                            <p class="leading-relaxed text-[#065f46]/90 mb-3">Ensure <strong>Data Roaming</strong> is turned <strong class="uppercase tracking-wide">ON</strong> for the newly added eSIM profile after installation.</p>
                             
                             <!-- Toggle illustrative icon + text -->
-                            <div class="flex items-center gap-3 bg-white/60 p-3 rounded-xl border border-emerald-200/50 mt-2">
-                                <svg class="w-10 h-6 shrink-0 text-[#5fd0c0] transition-transform hover:scale-105" viewBox="0 0 32 20" fill="currentColor">
+                            <div class="flex items-center gap-3 bg-white/60 p-3 rounded-xl border border-[#9cdbd7]/50 mt-2">
+                                <svg class="w-10 h-6 shrink-0 text-[#9cdbd7] transition-transform hover:scale-105" viewBox="0 0 32 20" fill="currentColor">
                                     <rect width="32" height="20" rx="10" fill="currentColor" fill-opacity="0.3"/>
-                                    <circle cx="22" cy="10" r="8" fill="#5fd0c0" stroke="white" stroke-width="2" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2))"/>
+                                    <circle cx="22" cy="10" r="8" fill="#9cdbd7" stroke="white" stroke-width="2" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2))"/>
                                 </svg>
-                                <span class="text-[11px] text-emerald-800/80 font-medium leading-tight">Note that this won't incur in any extra charges.</span>
+                                <span class="text-[11px] text-[#065f46]/80 font-medium leading-tight">Note that this won't incur in any extra charges.</span>
                             </div>
                         </div>
                     </div>
@@ -482,99 +491,89 @@
                         <p class="text-xs text-slate-500">Scan this code using your device camera during the setup process.</p>
                     </div>
 
-                    <!-- Manual Details Section -->
-                    <div id="guide-manual-section" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm opacity-50 pointer-events-none transition-all">
-                        <h4 class="font-bold text-slate-900 mb-4 text-[13px] uppercase tracking-wider flex items-center gap-2">
-                            <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    <!-- Manual Details Section - Compact & Colorful -->
+                    <div id="guide-manual-section" class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm opacity-50 pointer-events-none transition-all">
+                        <h4 class="font-bold text-slate-900 mb-3 text-xs uppercase tracking-wider flex items-center gap-2">
+                            <svg class="w-4 h-4 text-[#4f46e5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             Manual Activation & SIM Specs
                         </h4>
                         
-                        <div class="space-y-4">
-                            <div class="space-y-3">
-                                <div>
-                                    <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">Full Activation String</span>
-                                    <div class="flex items-center gap-2">
-                                        <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 break-all select-all shadow-inner flex-grow min-h-[44px] flex items-center" id="guide-full-string">Pending...</div>
-                                        <button onclick="copyTextValue('guide-full-string')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center" title="Copy text">
-                                            <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
+                        <div class="flex flex-col gap-2.5">
+                            <!-- Full String -->
+                            <div class="w-full">
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">Full Activation String</span>
+                                <div class="flex items-center gap-1.5">
+                                    <div class="bg-[#dec7f4]/20 border border-[#dec7f4]/50 px-2.5 py-1.5 rounded font-mono text-xs text-slate-800 break-all select-all flex-grow min-h-[32px] flex items-center leading-tight shadow-inner" id="guide-full-string">Pending...</div>
+                                    <button onclick="copyTextValue('guide-full-string')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs" title="Copy text">
+                                        <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <div>
-                                        <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">SM-DP+ Address</span>
-                                        <div class="flex items-center gap-2">
-                                            <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 truncate select-all shadow-inner flex-grow h-11 flex items-center" id="guide-smdp">Pending...</div>
-                                            <button onclick="copyTextValue('guide-smdp')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center">
-                                                <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">Activation Code</span>
-                                        <div class="flex items-center gap-2">
-                                            <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 truncate select-all shadow-inner flex-grow h-11 flex items-center" id="guide-act-code">Pending...</div>
-                                            <button onclick="copyTextValue('guide-act-code')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center">
-                                                <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
+                            </div>
+
+                            <!-- SM-DP+ Address -->
+                            <div class="w-full">
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">SM-DP+ Address</span>
+                                <div class="flex items-center gap-1.5">
+                                    <div class="bg-[#9cdbd7]/20 border border-[#9cdbd7]/50 px-2.5 py-1.5 rounded font-mono text-xs text-slate-800 break-all select-all flex-grow min-h-[32px] flex items-center leading-tight shadow-inner" id="guide-smdp">Pending...</div>
+                                    <button onclick="copyTextValue('guide-smdp')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs">
+                                        <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Activation Code -->
+                            <div class="w-full">
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">Activation Code</span>
+                                <div class="flex items-center gap-1.5">
+                                    <div class="bg-[#f2ddc7]/30 border border-[#f2ddc7]/80 px-2.5 py-1.5 rounded font-mono text-xs text-slate-800 break-all select-all flex-grow min-h-[32px] flex items-center leading-tight shadow-inner" id="guide-act-code">Pending...</div>
+                                    <button onclick="copyTextValue('guide-act-code')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs">
+                                        <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             
-                            <div class="pt-4 border-t border-slate-100 space-y-3">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <div>
-                                        <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">ICCID</span>
-                                        <div class="flex items-center gap-2">
-                                            <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 truncate select-all shadow-inner flex-grow h-11 flex items-center" id="guide-iccid">Pending...</div>
-                                            <button onclick="copyTextValue('guide-iccid')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center">
-                                                <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">APN</span>
-                                        <div class="flex items-center gap-2">
-                                            <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 truncate select-all shadow-inner flex-grow h-11 flex items-center" id="guide-apn">Pending...</div>
-                                            <button onclick="copyTextValue('guide-apn')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center">
-                                                <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
+                            <!-- Shorter Specs Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-100">
+                                <div>
+                                    <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">ICCID</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="bg-[#aca9f7]/20 border border-[#aca9f7]/50 px-2 py-1.5 rounded font-mono text-[11px] text-slate-800 truncate select-all flex-grow min-h-[32px] flex items-center shadow-inner" id="guide-iccid">Pending...</div>
+                                        <button onclick="copyTextValue('guide-iccid')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <div>
-                                        <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">PIN</span>
-                                        <div class="flex items-center gap-2">
-                                            <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 truncate select-all shadow-inner flex-grow h-11 flex items-center" id="guide-pin">Pending...</div>
-                                            <button onclick="copyTextValue('guide-pin')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center">
-                                                <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
+                                <div>
+                                    <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">APN</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="bg-[#5fd0c0]/20 border border-[#5fd0c0]/50 px-2 py-1.5 rounded font-mono text-[11px] text-slate-800 truncate select-all flex-grow min-h-[32px] flex items-center shadow-inner" id="guide-apn">Pending...</div>
+                                        <button onclick="copyTextValue('guide-apn')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                        </button>
                                     </div>
-                                    <div>
-                                        <span class="block text-[11px] font-bold text-slate-400 uppercase font-mono mb-1">PUK</span>
-                                        <div class="flex items-center gap-2">
-                                            <div class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg font-mono text-xs text-slate-800 truncate select-all shadow-inner flex-grow h-11 flex items-center" id="guide-puk">Pending...</div>
-                                            <button onclick="copyTextValue('guide-puk')" class="w-11 h-11 shrink-0 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 transition flex items-center justify-center">
-                                                <svg class="w-5 h-5" viewBox="0 0 16 16" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                                </svg>
-                                            </button>
-                                        </div>
+                                </div>
+                                <div>
+                                    <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">PIN</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="bg-[#efce84]/30 border border-[#efce84]/60 px-2 py-1.5 rounded font-mono text-[11px] text-slate-800 truncate select-all flex-grow min-h-[32px] flex items-center shadow-inner" id="guide-pin">Pending...</div>
+                                        <button onclick="copyTextValue('guide-pin')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="block text-[10px] font-bold text-slate-400 uppercase font-mono mb-0.5">PUK</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="bg-slate-50 border border-slate-200 px-2 py-1.5 rounded font-mono text-[11px] text-slate-800 truncate select-all flex-grow min-h-[32px] flex items-center shadow-inner" id="guide-puk">Pending...</div>
+                                        <button onclick="copyTextValue('guide-puk')" class="w-8 h-8 shrink-0 bg-white hover:bg-slate-50 border border-slate-200 rounded text-slate-500 transition flex items-center justify-center shadow-xs">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -583,8 +582,8 @@
                 </div>
             </div>
 
-            <div class="mt-8 pt-6 border-t border-slate-100 flex justify-end">
-                <button onclick="toggleEsimGuide()" class="btn-flashy h-11 px-8 text-sm font-bold cursor-pointer inline-flex items-center justify-center">
+            <div class="mt-6 lg:mt-8 pt-5 lg:pt-6 border-t border-slate-100 flex justify-end">
+                <button onclick="toggleEsimGuide()" class="btn-flashy h-11 px-8 text-sm font-bold cursor-pointer inline-flex items-center justify-center w-full sm:w-auto">
                     Got it, close
                 </button>
             </div>
@@ -594,10 +593,11 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm font-medium text-slate-400 mt-auto">
         <p>Datos Libres™ • eSIM y Datos para celular</p>
+        <p class="mt-1.5 text-[11px] text-slate-400/80">We don't collect cookies.</p>
     </footer>
 
     <!-- Need Help Floating Button -->
-    <a href="https://x.com/messages/compose?recipient_id=2099655010283868161" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 inline-flex items-center justify-center space-x-2 px-6 h-11 rounded-full bg-gradient-to-r from-[#b7b5f5] to-[#5fd0c0] text-slate-900 shadow-xl border-2 border-white/60 hover:shadow-2xl hover:border-white hover:scale-105 transition-all duration-300 cursor-pointer">
+    <a href="https://x.com/messages/compose?recipient_id=2099655010283868161" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 inline-flex items-center justify-center space-x-2 px-6 h-11 rounded-full bg-gradient-to-r from-[#dec7f4] to-[#9cdbd7] text-slate-900 shadow-xl border-2 border-white/60 hover:shadow-2xl hover:border-white hover:scale-105 transition-all duration-300 cursor-pointer">
         <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
@@ -661,12 +661,12 @@
 
         function selectPackage(cardEl, pkgName, price) {
             document.querySelectorAll('.package-card').forEach(c => {
-                c.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
+                c.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#9cdbd7] hover:shadow-md flex flex-col justify-between h-full';
                 const badge = c.querySelector('.absolute');
                 if (badge) badge.remove();
             });
 
-            cardEl.className = 'package-card cursor-pointer border-2 border-[#5fd0c0] bg-gradient-to-br from-[#b7b5f5]/10 to-[#5fd0c0]/10 rounded-2xl p-4 transition hover:shadow-md relative flex flex-col justify-between h-full';
+            cardEl.className = 'package-card cursor-pointer border-2 border-[#9cdbd7] bg-gradient-to-br from-[#dec7f4]/20 to-[#9cdbd7]/20 rounded-2xl p-4 transition hover:shadow-md relative flex flex-col justify-between h-full';
             
             const selectedBadge = document.createElement('span');
             selectedBadge.className = 'absolute -top-2 -right-2 bg-[#dec7f4] text-slate-900 text-[9px] font-bold px-2 py-1 rounded-full uppercase font-mono shadow-xs';
@@ -737,10 +737,10 @@
                     const isBestValue = name.toLowerCase() === 'best value';
                     
                     const card = document.createElement('div');
-                    card.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#5fd0c0] hover:shadow-md flex flex-col justify-between h-full';
+                    card.className = 'package-card cursor-pointer border-2 border-slate-200 bg-white rounded-2xl p-4 transition hover:border-[#9cdbd7] hover:shadow-md flex flex-col justify-between h-full';
                     card.onclick = function() { selectPackage(this, pkgName, price); };
                     
-                    let nameHTML = isBestValue ? `<div class="text-xs font-bold text-amber-600 uppercase font-mono tracking-wider truncate bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/50 inline-block shadow-sm">${name}</div>` : `<div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider truncate">${name}</div>`;
+                    let nameHTML = isBestValue ? `<div class="text-xs font-bold text-[#774f08] uppercase font-mono tracking-wider truncate bg-[#efce84]/30 px-1.5 py-0.5 rounded border border-[#efce84]/80 inline-block shadow-sm">${name}</div>` : `<div class="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider truncate">${name}</div>`;
 
                     card.innerHTML = `
                         <div>
@@ -866,13 +866,13 @@
                         preloadImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(xfernum)}&margin=0`;
                     }
                     
-                    let nameClasses = isBestValue ? "font-bold text-amber-600 text-lg bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50" : "font-bold text-slate-800 text-lg";
+                    let nameClasses = isBestValue ? "font-bold text-[#774f08] text-lg bg-[#efce84]/30 px-2 py-0.5 rounded border border-[#efce84]/80" : "font-bold text-slate-800 text-lg";
                     let displayTitle = `${gb}GB - ${name}`;
 
                     // Create Custom Dropdown Item
                     const li = document.createElement('li');
                     li.className = 'px-5 py-3.5 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0 flex justify-between items-center transition-colors';
-                    li.innerHTML = `<div class="flex flex-col"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${parts[1]} days</span></div> <span class="bg-red-50 text-red-700 px-3 py-1 rounded border border-red-100 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
+                    li.innerHTML = `<div class="flex flex-col"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${parts[1]} days</span></div> <span class="bg-slate-100 text-[#065f46] px-3 py-1 rounded border border-slate-200 font-mono text-sm font-bold shadow-sm shrink-0 ml-2">$${parts[2]} MXN</span>`;
                     
                     li.onclick = (e) => {
                         e.stopPropagation();
@@ -917,9 +917,9 @@
             // Update Label of dropdown button
             const data = oxxoData[pkgName];
             if (data) {
-                let nameClasses = data.isBestValue ? "font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50" : "font-bold text-slate-900";
+                let nameClasses = data.isBestValue ? "font-bold text-[#774f08] bg-[#efce84]/30 px-2 py-0.5 rounded border border-[#efce84]/80" : "font-bold text-slate-900";
                 let displayTitle = `${data.gb}GB - ${data.name}`;
-                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${data.duration} days</span></div> <span class="text-red-600 font-bold px-3 py-1 bg-red-50 rounded border border-red-100 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
+                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${data.duration} days</span></div> <span class="text-[#065f46] font-bold px-3 py-1 bg-slate-100 rounded border border-slate-200 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
                 document.getElementById('oxxo-dropdown-label').className = "text-slate-800 text-base flex-grow flex items-center justify-between";
             }
             updateOxxoView();
@@ -1215,12 +1215,12 @@
                 secondUnderlineContainer.classList.add('hidden');
                 
                 statusSubtext.innerText = 'eSIM number not found';
-                statusSubtext.className = 'text-xs font-bold text-rose-600 mt-1';
+                statusSubtext.className = 'text-xs font-bold text-[#774f08] mt-1';
 
-                statusBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-rose-100 text-rose-800 font-bold font-mono';
+                statusBadge.className = 'inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-[#f2ddc7]/50 text-[#774f08] font-bold border border-[#efce84]/50 font-mono tracking-wider';
                 statusBadge.innerText = 'Not Found';
 
-                countBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 font-bold font-mono';
+                countBadge.className = 'inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-slate-200 text-slate-700 font-bold font-mono tracking-wider';
                 countBadge.innerText = '0 items';
 
                 document.getElementById('empty-state-title').innerText = `eSIM number "${urlId || ''}" wasn't found`;
@@ -1280,16 +1280,16 @@
                 if (hasDataInfo && maxVal > 0 && currentVal >= maxVal) isActive = false;
 
                 if (isActive) {
-                    statusBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-200 font-mono';
+                    statusBadge.className = 'inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-[#9cdbd7]/20 text-[#065f46] font-bold border border-[#9cdbd7]/50 font-mono tracking-wider';
                     statusBadge.innerText = 'Active Plan';
 
-                    countBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-200/80 font-mono';
+                    countBadge.className = 'inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-[#9cdbd7]/20 text-[#065f46] font-bold border border-[#9cdbd7]/50 font-mono tracking-wider';
                     countBadge.innerText = 'Active';
                 } else {
-                    statusBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-200 font-mono';
+                    statusBadge.className = 'inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-[#f2ddc7]/50 text-[#774f08] font-bold border border-[#efce84]/80 font-mono tracking-wider';
                     statusBadge.innerText = 'Expired / Depleted';
 
-                    countBadge.className = 'px-2.5 py-0.5 text-xs rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-200/80 font-mono';
+                    countBadge.className = 'inline-flex items-center px-2.5 h-6 text-[10px] rounded-full bg-[#f2ddc7]/50 text-[#774f08] font-bold border border-[#efce84]/80 font-mono tracking-wider';
                     countBadge.innerText = 'Expired';
 
                     secondUnderlineContainer.classList.add('hidden');
@@ -1306,8 +1306,8 @@
 
                     const iconBox = document.createElement('div');
                     iconBox.className = isActive
-                        ? 'w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 font-bold text-sm flex items-center justify-center shrink-0 mt-0.5 border border-emerald-100 font-mono'
-                        : 'w-8 h-8 rounded-full bg-rose-50 text-rose-600 font-bold text-sm flex items-center justify-center shrink-0 mt-0.5 border border-rose-100 font-mono';
+                        ? 'w-8 h-8 rounded-full bg-[#9cdbd7]/20 text-[#065f46] font-bold text-sm flex items-center justify-center shrink-0 mt-0.5 border border-[#9cdbd7]/50 font-mono'
+                        : 'w-8 h-8 rounded-full bg-[#f2ddc7]/50 text-[#774f08] font-bold text-sm flex items-center justify-center shrink-0 mt-0.5 border border-[#efce84]/50 font-mono';
                     iconBox.innerText = index + 1;
 
                     const contentBox = document.createElement('div');
@@ -1372,8 +1372,8 @@
                         if (extraInfo) {
                             const badge = document.createElement('span');
                             badge.className = isActive
-                                ? 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono'
-                                : 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200/60 font-mono';
+                                ? 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#9cdbd7]/20 text-[#065f46] border border-[#9cdbd7]/50 font-mono'
+                                : 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#f2ddc7]/50 text-[#774f08] border border-[#efce84]/80 font-mono';
                             badge.innerText = extraInfo.replace(/[()]/g, '');
                             valueContainer.appendChild(badge);
                         }
@@ -1404,11 +1404,11 @@
                         
                         const usageText = document.createElement('span');
                         usageText.className = 'font-bold text-slate-800';
-                        const accentColorClass = isActive ? 'text-[#b7b5f5]' : 'text-rose-500';
+                        const accentColorClass = isActive ? 'text-[#4f46e5]' : 'text-[#774f08]';
                         usageText.innerHTML = `<span class="${accentColorClass}">${itemCurrent.toFixed(2)} MB</span> <span class="text-slate-500 font-medium text-xs uppercase tracking-wider mx-1">used of</span> ${itemMax.toFixed(2)} MB <span class="text-slate-400 font-mono text-xs ml-1">(${remainingMb.toFixed(2)} MB left)</span>`;
 
                         const percentText = document.createElement('span');
-                        percentText.className = `text-sm font-bold font-mono ${isActive ? 'text-[#5fd0c0]' : 'text-rose-700'}`;
+                        percentText.className = `text-sm font-bold font-mono ${isActive ? 'text-[#065f46]' : 'text-[#774f08]'}`;
                         percentText.innerText = `${percentage.toFixed(1)}%`;
 
                         detailsRow.appendChild(usageText);
@@ -1418,7 +1418,7 @@
                         progressTrack.className = 'w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200/50 p-0.5 shadow-inner';
 
                         const progressBar = document.createElement('div');
-                        progressBar.className = `${isActive ? 'bg-gradient-to-r from-[#dec7f4] to-[#9cdbd7]' : 'bg-gradient-to-r from-rose-400 to-rose-500'} h-full rounded-full transition-all duration-1000 ease-out`;
+                        progressBar.className = `${isActive ? 'bg-gradient-to-r from-[#dec7f4] to-[#9cdbd7]' : 'bg-slate-400'} h-full rounded-full transition-all duration-1000 ease-out`;
                         progressBar.style.width = `${percentage}%`;
 
                         progressTrack.appendChild(progressBar);
