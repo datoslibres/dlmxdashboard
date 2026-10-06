@@ -262,8 +262,8 @@
                         <span>Pay with Cash at OXXO</span>
                     </h3>
                     <div class="flex flex-col sm:items-end">
-                        <span class="bg-[#efce84]/30 text-[#774f08] font-bold px-2 py-1 rounded-md border border-[#efce84]/80 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">Prices in MXN</span>
-                        <span class="text-[10px] text-slate-400 font-medium mt-1 text-left sm:text-right max-w-[220px] leading-tight">Subject to frequent change based on market value</span>
+                        <span class="bg-[#efce84]/30 text-[#774f08] font-bold px-2 py-1 rounded-md border border-[#efce84]/80 shadow-sm text-[10px] uppercase tracking-wider font-mono inline-block">Prices in MXN*</span>
+                        <span class="text-[10px] text-slate-400 font-medium mt-1 text-left sm:text-right max-w-[260px] leading-tight">*Subject to frequent change based on market value</span>
                     </div>
                 </div>
 
@@ -327,7 +327,7 @@
                             <div class="text-sm font-medium text-slate-500 flex items-center justify-center gap-3 mt-1">
                                 <span>Pkg: <span id="oxxo-pkg-display" class="font-bold text-slate-800">--</span></span>
                                 <span class="text-slate-300">|</span>
-                                <span>Amt: <span id="oxxo-amount" class="font-bold text-[#065f46] text-base">-- MXN</span></span>
+                                <span>Amt: <span id="oxxo-amount" class="font-bold text-[#5fd0c0] text-base">-- MXN</span></span>
                             </div>
                         </div>
                     </div>
@@ -919,7 +919,7 @@
             if (data) {
                 let nameClasses = data.isBestValue ? "font-bold text-[#774f08] bg-[#efce84]/30 px-2 py-0.5 rounded border border-[#efce84]/80" : "font-bold text-slate-900";
                 let displayTitle = `${data.gb}GB - ${data.name}`;
-                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${data.duration} days</span></div> <span class="text-[#065f46] font-bold px-3 py-1 bg-slate-100 rounded border border-slate-200 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
+                document.getElementById('oxxo-dropdown-label').innerHTML = `<div class="flex flex-col text-left flex-grow"><div class="flex items-center"><span class="${nameClasses}">${displayTitle}</span></div><span class="text-xs text-slate-500 font-medium mt-1">Valid for ${data.duration} days</span></div> <span class="text-[#5fd0c0] font-bold px-3 py-1 bg-slate-100 rounded border border-slate-200 shadow-sm text-sm mr-3 shrink-0">$${data.mxn} MXN</span>`;
                 document.getElementById('oxxo-dropdown-label').className = "text-slate-800 text-base flex-grow flex items-center justify-between";
             }
             updateOxxoView();
@@ -1408,7 +1408,7 @@
                         usageText.innerHTML = `<span class="${accentColorClass}">${itemCurrent.toFixed(2)} MB</span> <span class="text-slate-500 font-medium text-xs uppercase tracking-wider mx-1">used of</span> ${itemMax.toFixed(2)} MB <span class="text-slate-400 font-mono text-xs ml-1">(${remainingMb.toFixed(2)} MB left)</span>`;
 
                         const percentText = document.createElement('span');
-                        percentText.className = `text-sm font-bold font-mono ${isActive ? 'text-[#065f46]' : 'text-[#774f08]'}`;
+                        percentText.className = `text-sm font-bold font-mono ${isActive ? 'text-[#5fd0c0]' : 'text-[#774f08]'}`;
                         percentText.innerText = `${percentage.toFixed(1)}%`;
 
                         detailsRow.appendChild(usageText);
